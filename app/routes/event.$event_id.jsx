@@ -19,7 +19,7 @@ export async function loader({params, request}){
 export default function Event(){
     const {event, user} = useLoaderData();
     const attending = event?.participant?.some((participant) => {
-        return participant._id === user._id;
+        return participant._id === user?._id;
     })
 
     return (
@@ -35,7 +35,7 @@ export default function Event(){
                     {!attending && (
                     <Form className="mt-1" method="post" onSubmit={handleSubmit}>
                         {
-                            event?.useriD !== user._id && (
+                            user && event?.useriD !== user?._id && (
                                 <button className="bg-slate-100 rounded-md text-slate-600 px-7 py-2" name="_action" value="attend">Attend</button>
                             )
                         }
@@ -45,7 +45,7 @@ export default function Event(){
                 {
                     event?.participant.map((participant) => {
                         return (
-                            <p className="" key={participant._id}>{participant._id === user._id ? "You" : participant.name}</p>
+                            <p className="" key={participant._id}>{user && participant?._id === user?._id ? "You" : participant.name}</p>
                         );
                     })
                 }
