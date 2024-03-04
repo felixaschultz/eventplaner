@@ -1,13 +1,12 @@
 import { Link } from "@remix-run/react";
 import { authenticator } from "../../services/auth.server";
 import { useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/node";
 
 export async function loader({ request }) {
-    const user = await authenticator.isAuthenticated(request);
-    console.log(user);
-    return json({ user: user });
-  }
+    return await authenticator.isAuthenticated(request, {
+        failureRedirect: "/signin"
+    });
+}
 
 export default function Header() {
     const user = useLoaderData();

@@ -12,7 +12,7 @@ import { json } from "@remix-run/node";
 export async function loader({request}) {
   // If the user is already authenticated redirect to /posts directly
   await authenticator.isAuthenticated(request, {
-    successRedirect: "/profile"
+    successRedirect: "/",
   });
   // Retrieve error message from session if present
   const session = await sessionStorage.getSession(request.headers.get("Cookie"));
