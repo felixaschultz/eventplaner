@@ -11,7 +11,7 @@ export default function Card({entry, user}) {
 
     return (
         <div className="card p-8 text-slate-50 bg-slate-900">
-            <p>{user && (entry.public ? "Public" : "Private")}</p>
+            <p>{user && window.location.pathname === "/my-events" && (entry.public ? "Public" : "Private")}</p>
             <h1 className="text-1xl font-bold">{entry.title}</h1>
             <p>{entry.description}</p>
             <time dateTime={entry.date}>{formattedDate} - { time }</time>
