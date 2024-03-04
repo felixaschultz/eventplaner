@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData
 } from "@remix-run/react";
+import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
 import Header from "./components/Header";
 import styles from "./tailwind.css";
 import { authenticator } from "./services/auth.server";
@@ -54,4 +55,30 @@ export async function action({request}){
   await authenticator.logout(request, {
     redirectTo: "/login",
   });
+}
+
+export function ErrorBoundary() {
+  let error = useRouteError();
+  return (
+    <html lang="en" className="h-full">
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="flex h-full flex-col items-center justify-center">
+        <p className="text-3xl">Whoops!</p>
+        {isRouteErrorResponse(error) ? (
+          <p>
+            {error.status} – {error.statusText}
+          </p>
+        ) : error instanceof Error ? (
+          <p>{error.message}</p>
+        ) : (
+          <p>Something happened.</p>
+        )}
+        <Scripts />
+      </body>
+    </html>
+  );
 }

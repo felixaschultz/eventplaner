@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import Card from "../components/Card";
 import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
@@ -20,7 +20,9 @@ export default function Index() {
       <h1 className="text-3xl font-bold">Events</h1>
       <section className="grid grid-cols-2 gap-4">
         {entries.map((entry) => (
-          <Card key={entry._id} entry={entry} user={user} />
+          <Link to={`/event/${entry._id}`} key={entry._id}>
+            <Card key={entry._id} entry={entry} user={user} />
+          </Link>
         ))}
       </section>
     </div>

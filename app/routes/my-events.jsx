@@ -4,6 +4,13 @@ import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import Card from "../components/Card";
 
+export const meta = () => {
+    return [
+        {
+            title: "My Events | Event Planer"
+        }
+    ];
+}
 export async function loader({ request }) {
     const user = await authenticator.isAuthenticated(request, {
         failureRedirect: "/login"
@@ -15,14 +22,6 @@ export async function loader({ request }) {
     }).sort({ date: -1 });
 
     return json({ entries, user });
-}
-
-export const meta = () => {
-    return [
-        {
-            title: "My Events | Event Planer"
-        }
-    ];
 }
 
 export default function MyEvents() {
