@@ -13,7 +13,7 @@ export let authenticator = new Authenticator(sessionStorage, {
 // ...
 async function verifyUser({ mail, password }) {
   // ...
-  const user = await mongoose.models.Account.findOne({ email: mail }).select("+password");
+  const user = await mongoose.models.Account.findOne({ mail }).select("+password");
   if (!user) {
     throw new AuthorizationError("No user found with this email");
   }
@@ -29,7 +29,7 @@ async function verifyUser({ mail, password }) {
 // Tell the Authenticator to use the form strategy
 authenticator.use(
     new FormStrategy(async ({ form }) => {
-      let mail = form.get("mail");
+      let mail = form.get("email");
       let password = form.get("password");
       let user = null;
   
