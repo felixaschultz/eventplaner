@@ -17,6 +17,10 @@ const entrySchema = new Schema(
       type: String,
       required: true,
     },
+    public: {
+      type: Boolean,
+      required: true,
+    },
   },
   // Automatically add `createdAt` and `updatedAt` timestamps:
   // https://mongoosejs.com/docs/timestamps.html

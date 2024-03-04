@@ -1,11 +1,12 @@
 import { Form } from "@remix-run/react";
 import "../Styles/login-signup.css";
+import mongoose from "mongoose";
 
 export const meta = () => {
     return [{ title: "Signup" }];
 };
 
-export default function Login() {
+export default function Signup() {
     return (
         <div className="p-8 text-slate-50 bg-slate-900">
             <h1 className="text-3xl font-bold">Signup</h1>

@@ -1,5 +1,6 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import Card from "../components/Card";
 import mongoose from "mongoose";
 
 export async function loader() {
@@ -13,11 +14,11 @@ export default function Index() {
   return (
     <div className="p-8 text-slate-50 bg-slate-900">
       <h1 className="text-3xl font-bold">Entries</h1>
-      <ul>
+      <section className="grid grid-cols-2">
         {entries.map((entry) => (
-          <li key={entry._id}>{entry.text}</li>
+          <Card key={entry._id} entry={entry} />
         ))}
-      </ul>
+      </section>
     </div>
   );
 }
