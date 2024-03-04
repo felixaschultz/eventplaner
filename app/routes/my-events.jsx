@@ -13,7 +13,8 @@ export async function loader({ request }) {
     const entries = await mongoose.models.Entry.find({
         useriD: userId
     }).sort({ date: -1 });
-    return json({ entries });
+
+    return json({ entries, user });
 }
 
 export const meta = () => {
@@ -25,14 +26,13 @@ export const meta = () => {
 }
 
 export default function MyEvents() {
-    const { entries } = useLoaderData();
-  
+    const { entries, user } = useLoaderData();
     return (
       <div className="p-8 text-slate-50 bg-slate-900">
         <h1 className="text-3xl font-bold">My Events</h1>
         <section className="grid grid-cols-2 gap-4">
           {entries.map((entry) => (
-            <Card key={entry._id} entry={entry} />
+            <Card key={entry._id} entry={entry} user={user} />
           ))}
         </section>
       </div>

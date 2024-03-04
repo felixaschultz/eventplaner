@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 
-export default function Card({entry}) {
+export default function Card({entry, user}) {
     const date = new Intl.DateTimeFormat("da-DK").format(new Date(entry.date));
 
     const formattedDate = `${date}`;
@@ -15,7 +15,9 @@ export default function Card({entry}) {
             <h1 className="text-1xl font-bold">{entry.title}</h1>
             <p>{entry.description}</p>
             <time dateTime={entry.date}>{formattedDate} - { time }</time>
-            <Link to={`/edit/${entry._id}`}>Edit</Link>
+            {user && user._id === entry.useriD && (
+                <Link to={`/edit/${entry._id}`}>Edit</Link>
+            )}
         </div>
     );
 }
