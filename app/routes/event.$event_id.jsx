@@ -21,7 +21,7 @@ export default function Event(){
     const attending = event?.participant?.some((participant) => {
         return participant._id === user?._id;
     })
-
+    
     return (
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900">
             <section>
@@ -33,7 +33,7 @@ export default function Event(){
                 <h3>Place: {event?.place}</h3>
                 <section className="mt-5">
                     <h3 className="text-xl font-bold">Attendancies</h3>
-                    <p>Total: {event?.participant.lenght == undefined ? "0" : event?.participant.lenght}</p>
+                    <p>Total: {event?.participant.length == undefined ? "0" : event?.participant.length}</p>
                     {!attending && (
                     <Form className="mt-1" method="post" onSubmit={handleSubmit}>
                         {
