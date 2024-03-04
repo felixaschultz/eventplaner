@@ -1,10 +1,7 @@
-import "./Style.css";
-import moment from "moment";
 export default function Card({entry}) {
-    const date = moment(entry.date).format("MMMM Do, YYYY");
-    const time = moment(entry.date).format("h:mm a");
+    const date = new Intl.DateTimeFormat("da-DK").format(new Date(entry.date));
 
-    const formattedDate = `${date} at ${time}`;
+    const formattedDate = `${date}`;
 
     return (
         <div className="card p-8 text-slate-50 bg-slate-900">

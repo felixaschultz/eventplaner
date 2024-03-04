@@ -16,13 +16,21 @@ export async function loader({ request }) {
     return json({ entries });
 }
 
+export const meta = () => {
+    return [
+        {
+            title: "My Events | Event Planer"
+        }
+    ];
+}
+
 export default function MyEvents() {
     const { entries } = useLoaderData();
   
     return (
       <div className="p-8 text-slate-50 bg-slate-900">
         <h1 className="text-3xl font-bold">My Events</h1>
-        <section className="grid grid-cols-2">
+        <section className="grid grid-cols-2 gap-4">
           {entries.map((entry) => (
             <Card key={entry._id} entry={entry} />
           ))}
