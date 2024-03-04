@@ -39,16 +39,14 @@ export default function Event(){
                 <article className="mt-10 border-t-2 border-t-slate-300">
                     <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
                     {
-                        user && (
-                            <fetcher.Form className="mb-15" method="post">
-                                <fieldset disabled={fetcher.state === "submitting" ? true : false}>
-                                    <textarea ref={comment} className="w-full bg-slate-400 block p-2 placeholder:text-slate-600 text-slate-700 rounded-md" id="comment" name="comment" placeholder="Write a comment" />
-                                </fieldset>
+                        <fetcher.Form className="mb-15" method="post">
+                            <fieldset className="disabled:opacity-50" disabled={fetcher.state === "submitting" || !user ? true : false}>
+                                <textarea ref={comment} className="w-full bg-slate-400 block p-2 placeholder:text-slate-600 text-slate-700 rounded-md" id="comment" name="comment" placeholder="Write a comment" />
                                 <section className="grid place-content-end">
                                     <button className="bg-slate-600 p-2 px-3 rounded-lg text-right mt-3" name="_action" value="comment" type="submit">Comment</button>
                                 </section>
-                            </fetcher.Form>
-                        )
+                            </fieldset>
+                        </fetcher.Form>
                     }
                     {
                         (event?.comment && event?.comment.length > 0) ? event?.comment.sort((a,b) => {
