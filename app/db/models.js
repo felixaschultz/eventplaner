@@ -21,10 +21,15 @@ const entrySchema = new Schema(
       type: String,
       required: true,
     },
-    participant: {
-      type: Schema.Types.ObjectId,
-      ref: "Account",
-    },
+    participant: [
+      {
+        name: String,
+        _id: {
+          type: Schema.Types.ObjectId,
+          ref: "Account",
+        }
+      }
+    ],
     public: {
       type: Boolean,
       required: true,
