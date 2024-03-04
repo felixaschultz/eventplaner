@@ -1,4 +1,5 @@
 import { mongoose } from "mongoose";
+import bcrypt from "bcryptjs";
 
 const { Schema } = mongoose;
 
@@ -20,12 +21,46 @@ const entrySchema = new Schema(
     public: {
       type: Boolean,
       required: true,
+      default: false,
     },
   },
   // Automatically add `createdAt` and `updatedAt` timestamps:
   // https://mongoosejs.com/docs/timestamps.html
   { timestamps: true },
 );
+
+const userSchema = new Schema(
+  {
+    image: String,
+    mail: {
+      type: String,
+      required: true, // Ensure user emails are required
+      unique: true // Ensure user emails are unique
+    },
+    name: String,
+    title: String,
+    educations: [String],
+    password: {
+      type: String,
+      required: true, // Ensure user passwords are required
+      select: false // Automatically exclude from query results
+    }
+  },
+  { timestamps: true }
+);
+
+userSchema.pre("save", async function (next) {
+  const user = this; // this refers to the user document
+
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified("password")) {
+    return next(); // continue
+  }
+
+  const salt = await bcrypt.genSalt(10); // generate a salt
+  user.password = await bcrypt.hash(user.password, salt); // hash the password
+  next(); // continue
+});
 
 // For each model you want to create, please define the model's name, the
 // associated schema (defined above), and the name of the associated collection
@@ -36,4 +71,9 @@ export const models = [
     schema: entrySchema,
     collection: "entries",
   },
+  {
+    name: "Account",
+    schema: userSchema,
+    collection: "accounts",
+  }
 ];
