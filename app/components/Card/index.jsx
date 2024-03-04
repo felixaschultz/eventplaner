@@ -18,7 +18,7 @@ export default function Card({entry, user, children}) {
                 <time dateTime={entry.date}>{formattedDate} - { time }</time>
             </section>
             <section className="flex mt-5">
-                <Link to={"/event/" + entry._id} className="bg-slate-600 rounded-md text-slate-200 px-6 py-1 mr-6">View now</Link>
+                <Link to={"/event/" + entry._id} className="bg-slate-600 rounded-md text-slate-200 px-6 py-1 mr-6">View details</Link>
                 {user && user._id === entry.useriD && (
                     <Link className="bg-slate-600 rounded-md text-slate-200 px-6 py-1" to={`/edit/${entry._id}`}>Edit</Link>
                 )}
