@@ -24,9 +24,7 @@ export function meta() {
 }
 
 export async function loader({ request }) {
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: "/signin"
-  });
+  const user = await authenticator.isAuthenticated(request);
 
   return { user };
 }
@@ -50,4 +48,10 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export async function action({request}){
+  await authenticator.logout(request, {
+    redirectTo: "/",
+  });
 }
