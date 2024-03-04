@@ -1,5 +1,6 @@
 import { Form } from "@remix-run/react";
 import "../Styles/login-signup.css";
+import Input from "~/components/InputFields";
 export function loader() {
   return { message: "Hello from the loader!" };
 }
@@ -11,7 +12,7 @@ export default function Login() {
         <Form method="post">
             <div>
                 <label htmlFor="email">Email</label>
-                <input className="block p-2 text-slate-500" type="email" id="email" name="email" />
+                <Input type="email" id="email" name="email" />
             </div>
             <div>
                 <label htmlFor="password">Password</label>
