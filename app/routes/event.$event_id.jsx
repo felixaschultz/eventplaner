@@ -18,6 +18,10 @@ export async function loader({params, request}){
 
 export default function Event(){
     const {event, user} = useLoaderData();
+    const attending = event?.participant?.some((participant) => {
+        return participant._id === user._id;
+    })
+
     return (
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900">
             <section>
@@ -29,7 +33,7 @@ export default function Event(){
                 <h3>Attendancies</h3>
                 <Form method="post" onSubmit={handleSubmit}>
                     {
-                        event?.useriD !== user._id && (
+                        event?.useriD !== user._id && !attending && (
                             <button name="_action" value="attend">Attend</button>
                         )
                     }
