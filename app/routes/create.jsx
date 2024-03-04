@@ -13,7 +13,7 @@ export const loader = async ({ request }) => {
 export default function Create(){
     const fetcher = useFetcher();
     return (
-        <div className="p-8 text-slate-50 bg-slate-900">
+        <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
             <h1 className="text-3xl font-bold">Create Event</h1>
             <fetcher.Form method="post">
                 <fieldset disabled={(fetcher.state === "submitting") ? true : false}>

@@ -33,7 +33,7 @@ export async function loader({ request }) {
 export default function MyEvents() {
     const { entries, user, myEvents } = useLoaderData();
     return (
-      <div className="p-8 text-slate-50 bg-slate-900">
+      <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
         <h1 className="text-3xl font-bold">My Events</h1>
         <section className="grid grid-cols-2 gap-4">
           {entries.map((entry) => (

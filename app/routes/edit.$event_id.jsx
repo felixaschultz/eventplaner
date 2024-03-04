@@ -18,7 +18,7 @@ export default function Event(){
     const defaultDate = new Date(event.date).toISOString().slice(0, 16);
 
     return (
-        <div className="p-8 text-slate-50 bg-slate-900">
+        <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
             <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
             <Form method="post" onSubmit={handleSubmit}>
                 <button name="_action" value="delete">Delete Event</button>

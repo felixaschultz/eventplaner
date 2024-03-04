@@ -21,9 +21,9 @@ export default function Event(){
     const attending = event?.participant?.some((participant) => {
         return participant._id === user?._id;
     })
-    
+
     return (
-        <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900">
+        <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
             <section>
                 <h1 className="text-3xl font-bold">{event?.title}</h1>
                 <p>{event?.description}</p>

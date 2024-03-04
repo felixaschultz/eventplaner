@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    height: 100vh;
+}
 /* Card */
 .card{
     width: 100%;

@@ -24,10 +24,10 @@ export async function loader({request}) {
 export default function Login() {
     const loaderData = useLoaderData();
   return (
-    <div className="p-8 text-slate-50 bg-slate-900">
+    <div className="grid place-content-center p-8 text-slate-50 bg-slate-900 min-h-full">
         <h1 className="text-3xl font-bold">Login</h1>
         <Form method="post">
-            <div>
+            <div className="mb-4">
                 <label htmlFor="email">Email</label>
                 <Input type="email" id="email" name="email" />
             </div>
@@ -37,7 +37,7 @@ export default function Login() {
             </div>
             <div className="error-message">{loaderData?.error ? <p>{loaderData?.error?.message}</p> : null}</div>
             <div>
-                <button className="bg-slate-300 p-3 px-11 mt-3" type="submit">Login</button>
+                <button className="bg-slate-200 text-slate-600 w-full p-3 px-11 mt-3" type="submit">Login</button>
             </div>
         </Form>
     </div>
