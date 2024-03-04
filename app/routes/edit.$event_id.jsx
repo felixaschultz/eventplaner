@@ -17,7 +17,9 @@ export default function Event(){
     const {event} = useLoaderData();
     return (
         <div className="p-8 text-slate-50 bg-slate-900">
+            <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
             <Form method="post">
+                <button name="_action" value="public">Make public</button>
                 <fieldset>
                     <label htmlFor="title">Title</label>
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
@@ -39,22 +41,34 @@ export const action = async ({request, params}) => {
 
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
+    const { _action } = Object.fromEntries(formData);
     const eventId = new mongoose.Types.ObjectId(params.event_id);
     const userId = new mongoose.Types.ObjectId(user._id);
-
     data.useriD = userId;
 
-    const updatedEvent = await mongoose.models.Entry.updateOne(
-        {_id: eventId},
-        data
-    );
-
-    if(updatedEvent){
+    if(_action === "public"){
+        const entry = await mongoose.models.Entry.findById(eventId);
+        entry.public = true;
+        await entry.save();
         return new Response(null, {
             status: 302,
             headers: {
                 location: "/my-events",
             },
         });
+    }else{
+        const updatedEvent = await mongoose.models.Entry.updateOne(
+            {_id: eventId},
+            data
+        );
+    
+        if(updatedEvent){
+            return new Response(null, {
+                status: 302,
+                headers: {
+                    location: "/my-events",
+                },
+            });
+        }
     }
 };
