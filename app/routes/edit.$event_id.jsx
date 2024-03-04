@@ -20,9 +20,11 @@ export default function Event(){
     return (
         <div className="p-8 text-slate-50 bg-slate-900">
             <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
+            <Form method="post" onSubmit={handleSubmit}>
+                <button name="_action" value="delete">Delete Event</button>
+            </Form>
             <Form method="post">
                 <button name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
-                <button className="block p-2" name="_action" value="delete">Delete Event</button>
                 <fieldset>
                     <label htmlFor="title">Title</label>
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
@@ -60,6 +62,7 @@ export const action = async ({request, params}) => {
             },
         });
     }else if(_action === "delete"){
+
         await mongoose.models.Entry.findByIdAndDelete(params.event_id);
         return new Response(null, {
             status: 302,
@@ -83,3 +86,9 @@ export const action = async ({request, params}) => {
         }
     }
 };
+
+function handleSubmit(e){
+    if (!confirm("Are you sure?")) {
+        e.preventDefault();
+    }
+}

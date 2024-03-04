@@ -18,7 +18,7 @@ export default function Index() {
   return (
     <div className="p-8 text-slate-50 bg-slate-900">
       <h1 className="text-3xl font-bold">Events</h1>
-      <section className="grid grid-cols-2">
+      <section className="grid grid-cols-2 gap-4">
         {entries.map((entry) => (
           <Card key={entry._id} entry={entry} />
         ))}
