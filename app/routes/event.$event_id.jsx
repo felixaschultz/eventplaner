@@ -80,11 +80,19 @@ export default function Event(){
                     )}
                 </section>
                 {
-                    event?.participant.map((participant) => {
-                        return (
-                            <p className="" key={participant._id}>{user && participant?._id === user?._id ? "You" : participant.name}</p>
-                        );
-                    })
+                    event?.participant.length > 0 &&
+                    <section className="mt-5">
+                        <h3 className="text-xl font-bold">List of Participants</h3>
+                        <ul className="list-inside">
+                            {
+                                event?.participant.map((participant) => {
+                                    return (
+                                        <li className="block py-3 pl-5" key={participant._id}>{user && participant?._id === user?._id ? "You" : participant.name}</li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </section>
                 }
             </section>
         </div>
