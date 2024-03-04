@@ -22,7 +22,7 @@ export default function Create(){
                     <label htmlFor="description">Description</label>
                     <textarea className="block p-2 text-slate-500" id="description" name="description" />
                     <label htmlFor="date">Date</label>
-                    <input className="block p-2 text-slate-500" type="date" id="date" name="date" />
+                    <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" />
                 </fieldset>
                 <button  className="bg-slate-300 p-3 px-11 mt-3" type="submit">Create Event</button>
             </fetcher.Form>
@@ -44,12 +44,11 @@ export const action = async ({ request }) => {
     const NewEvent = await mongoose.models.Entry.create(data);
 
     if(NewEvent){
-        return {
+        return new Response(null, {
             status: 302,
             headers: {
                 location: "/my-events",
             },
-            body: "Redirecting...",
-        };
+        });
     }
 };
