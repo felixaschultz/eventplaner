@@ -56,8 +56,15 @@ export async function action({request}){
   const formData = await request.formData();
   const {_action} = Object.fromEntries(formData);
   if(_action === "search"){
-    const event = await mongoose.models.Entry.find({title: formData.get("search")});
-    return event;
+    const q = formData.get("search");
+    const event = await mongoose.models.Entry.find({
+      $or: [
+        { title: { $regex: new RegExp(q), $options: 'i' } },
+        { description: { $regex: new RegExp(q), $options: 'i' } }
+      ],
+      public: true
+    });
+    return [...event];
   }else{
     await authenticator.logout(request, {
       redirectTo: "/login",

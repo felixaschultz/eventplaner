@@ -10,13 +10,18 @@ export default function Header({user}) {
             <input className="p-2 text-slate-700" type="search" name="search" placeholder="Search" />
             <button name="_action" value="search" type="submit">Search</button>
             {
-                !event ? null : event.map((entry) => {
-                    return <>
-                        <Link className="search-item" to={`/event/${entry._id}`} key={entry._id}>
-                            <p>{entry.title}</p>
-                        </Link>
-                    </>
-                })
+                !event ? null : 
+                <section className="search-container">
+                    {
+                        event?.map((event) => {
+                            return (
+                                <Link className="search-item" to={`/event/${event._id}`} key={event._id}>
+                                    {event.title}
+                                </Link>
+                            );
+                        })
+                    }
+                </section>
             }
        </Form>
         <section className="text-right" >

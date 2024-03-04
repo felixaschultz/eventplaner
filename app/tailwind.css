@@ -20,16 +20,24 @@
 }
 
 /* Search */
-.search-item{
+.search-container{
     width: max-content;
     background-color: #fff;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     position: absolute;
     overflow: hidden;
     transition: all 0.3s ease;
     color: #000;
+}
+
+.search-item{
+    display: block;
+    padding: 10px 20px;
+}
+
+.search-item:hover{
+    background-color: #d1d1d1;
+    cursor: pointer;
 }
