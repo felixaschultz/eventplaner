@@ -10,7 +10,7 @@ export default function Header({user}) {
                 user?.user ? <>
                     <Link className="text-right p-5" to="/my-events">My Events</Link>
                     <Link className="text-right p-5" to="/create">Create Event</Link>
-                    <Link className="text-right p-5" to="/profile">{user?.user?.name}</Link>
+                    {/* <Link className="text-right p-5" to="/profile">{user?.user?.name}</Link> */}
                     <Form className="inline" method="post">
                         <button className="text-right p-4" type="submit">Logout</button>
                     </Form>
