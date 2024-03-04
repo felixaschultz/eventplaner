@@ -6,13 +6,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
+  useLoaderData,
+  useFetcher,
+  useActionData,
+  json
 } from "@remix-run/react";
 import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
-import Header from "./components/Header";
 import styles from "./tailwind.css";
 import { authenticator } from "./services/auth.server";
 import mongoose from "mongoose";
+import { Form } from "react-router-dom";
 
 export const links = () => [
   {
@@ -52,26 +55,6 @@ export default function App() {
   );
 }
 
-export async function action({request}){
-  const formData = await request.formData();
-  const {_action} = Object.fromEntries(formData);
-  if(_action === "search"){
-    const q = formData.get("search");
-    const event = await mongoose.models.Entry.find({
-      $or: [
-        { title: { $regex: new RegExp(q), $options: 'i' } },
-        { description: { $regex: new RegExp(q), $options: 'i' } }
-      ],
-      public: true
-    });
-    return [...event];
-  }else{
-    await authenticator.logout(request, {
-      redirectTo: "/login",
-    });
-  }
-}
-
 export function ErrorBoundary() {
   let error = useRouteError();
   return (
@@ -100,4 +83,70 @@ export function ErrorBoundary() {
       </body>
     </html>
   );
+}
+
+function Header({ user }) {
+  const fetcher = useFetcher();
+  let events = useActionData();
+  return (
+    <header className="grid grid-cols-3 p-8 align-middle text-slate-50 bg-slate-800">
+        <Link to="/" className="decoration-transparent"><h1 className="text-3xl font-bold">Event Planer</h1></Link>
+        <fetcher.Form method="post">
+            <input className="p-2 text-slate-700" type="search" name="search" placeholder="Search" />
+            <button name="_action" value="search" type="submit">Search</button>
+            {
+                !events ? null : 
+                <section className="search-container">
+                    {
+                        events?.map((event) => {
+                            return (
+                                <Link className="search-item" to={`/event/${event._id}`} key={event._id}>
+                                    {event.title}
+                                </Link>
+                            );
+                        })
+                    }
+                </section>
+            }
+        </fetcher.Form>
+        <section className="text-right" >
+            {
+                user?.user ? <>
+                    <Link className="text-right p-5" to="/my-events">My Events</Link>
+                    <Link className="text-right p-5" to="/create">Create Event</Link>
+                    {/* <Link className="text-right p-5" to="/profile">{user?.user?.name}</Link> */}
+                    <Form className="inline" method="post">
+                        <button className="text-right p-4" type="submit">Logout</button>
+                    </Form>
+                </>
+                :
+                <>
+                    <Link className="text-right p-8" to="/login">Login</Link>
+                    <Link className="text-right p-8" to="/signup">Signup</Link>
+                </>
+            }
+        </section>
+    </header>
+  );
+}
+
+export async function action({request}){
+  const formData = await request.formData();
+  const {_action, search} = Object.fromEntries(formData);
+  if(_action === "search"){
+    const q = search;
+    const events = await mongoose.models.Entry.find({
+      $or: [
+        { title: { $regex: new RegExp(q), $options: 'i' } },
+        { description: { $regex: new RegExp(q), $options: 'i' } }
+      ],
+      public: true
+    });
+    console.log(events);
+    return json(events);
+  }else{
+    await authenticator.logout(request, {
+      redirectTo: "/login",
+    });
+  }
 }
