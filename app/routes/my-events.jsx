@@ -3,6 +3,7 @@ import {authenticator} from '../services/auth.server';
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Card from "../components/Card";
+
 export async function loader({ request }) {
     const user = await authenticator.isAuthenticated(request, {
         failureRedirect: "/login"
@@ -11,7 +12,7 @@ export async function loader({ request }) {
   
     const entries = await mongoose.models.Entry.find({
         useriD: userId
-    });
+    }).sort({ date: -1 });
     return json({ entries });
 }
 
