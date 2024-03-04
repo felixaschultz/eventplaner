@@ -37,14 +37,16 @@ export default function Event(){
                 <h1 className="text-3xl font-bold">{event?.title}</h1>
                 <p>{event?.description}</p>
                 <article className="mt-10 border-t-2 border-t-slate-300">
-                    <h2 className="text-2xl font-bold mt-3">Comments</h2>
+                    <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
                     {
                         user && (
-                            <fetcher.Form method="post">
+                            <fetcher.Form className="mb-15" method="post">
                                 <fieldset disabled={fetcher.state === "submitting" ? true : false}>
-                                    <textarea ref={comment} className="block p-2 text-slate-500" id="comment" name="comment" />
+                                    <textarea ref={comment} className="w-full bg-slate-400 block p-2 placeholder:text-slate-600 text-slate-700 rounded-md" id="comment" name="comment" placeholder="Write a comment" />
                                 </fieldset>
-                                <button className="bg-slate-600 p-3 px-11 mt-3" name="_action" value="comment" type="submit">Add Comment</button>
+                                <section className="grid place-content-end">
+                                    <button className="bg-slate-600 p-2 px-3 rounded-lg text-right mt-3" name="_action" value="comment" type="submit">Comment</button>
+                                </section>
                             </fetcher.Form>
                         )
                     }
