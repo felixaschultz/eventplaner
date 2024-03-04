@@ -18,6 +18,10 @@ const entrySchema = new Schema(
       type: String,
       required: true,
     },
+    participant: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
     public: {
       type: Boolean,
       required: true,
@@ -39,7 +43,6 @@ const userSchema = new Schema(
     },
     name: String,
     title: String,
-    educations: [String],
     password: {
       type: String,
       required: true, // Ensure user passwords are required

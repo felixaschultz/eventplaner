@@ -4,7 +4,9 @@ import Card from "../components/Card";
 import mongoose from "mongoose";
 
 export async function loader() {
-  const entries = await mongoose.models.Entry.find({});
+  const entries = await mongoose.models.Entry.find({
+    public: true,
+  });
   return json({ entries });
 }
 

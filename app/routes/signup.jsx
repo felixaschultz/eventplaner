@@ -12,8 +12,12 @@ export default function Signup() {
             <h1 className="text-3xl font-bold">Signup</h1>
             <Form method="post">
                 <div>
+                    <label htmlFor="username">Name</label>
+                    <input className="block p-2 text-slate-500" type="text" id="username" name="name" />
+                </div>
+                <div>
                     <label htmlFor="email">Email</label>
-                    <input className="block p-2 text-slate-500" type="email" id="email" name="email" />
+                    <input className="block p-2 text-slate-500" type="email" id="email" name="mail" />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
@@ -27,9 +31,24 @@ export default function Signup() {
     );
 }
 
-export function action({request}){
-    const formData = request.formData();
+export async function action({request}){
+    const formData = await request.formData();
     const data = Object.fromEntries(formData);
 
-    console.log(data);
+    const NewUser = await mongoose.models.Account.create(data);
+
+    if(!NewUser){
+        return {
+            status: 500,
+            body: "Error creating user",
+        };
+    }
+
+    return {
+        status: 302,
+        headers: {
+            location: "/login",
+        },
+        body: "Redirecting...",
+    };
 }
