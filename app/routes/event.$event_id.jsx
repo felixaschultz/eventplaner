@@ -109,6 +109,14 @@ export const action = async ({request, params}) => {
         });
     }else if (_action === "comment"){
         const { comment } = Object.fromEntries(formData);
+
+        if(comment === "" || comment === null || comment === undefined){
+            return new Response(null, {
+                status: 400,
+                text: "Comment cannot be empty",
+            });
+        }
+
         return await mongoose.models.Entry.findOneAndUpdate(eventId, {
             $push: {
                 comment: {

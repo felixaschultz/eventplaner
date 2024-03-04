@@ -37,7 +37,7 @@ export default function MyEvents() {
         <h1 className="text-3xl font-bold">My Events</h1>
         <section className="grid grid-cols-2 gap-4">
           {entries.map((entry) => (
-            <Link to={`/event/${entry._id}`} key={entry._id}>
+            <Link  to={`/event/${entry._id}`} key={entry._id}>
               <Card key={entry._id} entry={entry} user={user} />
             </Link>
           ))}
