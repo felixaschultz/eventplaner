@@ -1,7 +1,8 @@
 import { Form } from "@remix-run/react";
-export function loader() {
-    return { message: "Hello from the loader!" };
-}
+
+export const meta = () => {
+    return [{ title: "Signup" }];
+};
 
 export default function Login() {
     return (
@@ -10,7 +11,7 @@ export default function Login() {
             <Form method="post">
                 <div>
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" />
+                    <input className="" type="email" id="email" name="email" />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
@@ -25,5 +26,5 @@ export default function Login() {
 }
 
 export function action({request}){
-    
+
 }
