@@ -21,6 +21,8 @@ export default function Create(){
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" />
                     <label htmlFor="description">Description</label>
                     <textarea className="block p-2 text-slate-500" id="description" name="description" />
+                    <label htmlFor="place">Place</label>
+                    <input className="block p-2 text-slate-500" type="text" id="place" name="place" />
                     <label htmlFor="date">Date</label>
                     <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" />
                 </fieldset>

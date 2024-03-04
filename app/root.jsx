@@ -64,6 +64,7 @@ export async function action({request}){
       $or: [
         { title: { $regex: new RegExp(q), $options: 'i' } },
         { description: { $regex: new RegExp(q), $options: 'i' } },
+        { place: { $regex: new RegExp(q), $options: 'i' } },
         { date: { $gte: date } }
       ],
       public: true

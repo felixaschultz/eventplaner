@@ -30,8 +30,10 @@ export default function Event(){
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("da-DK")}</h2>
+                <h3>Place: {event?.place}</h3>
                 <section className="mt-5">
                     <h3 className="text-xl font-bold">Attendancies</h3>
+                    <p>Total: {event?.participant.lenght == undefined ? "0" : event?.participant.lenght}</p>
                     {!attending && (
                     <Form className="mt-1" method="post" onSubmit={handleSubmit}>
                         {
