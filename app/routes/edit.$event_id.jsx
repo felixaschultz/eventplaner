@@ -10,7 +10,6 @@ export async function loader({request, params}){
     const eventId = new mongoose.Types.ObjectId(params.event_id);
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
-    console.log(event);
     return {event: event};
 }
 
@@ -42,7 +41,7 @@ export const action = async ({request, params}) => {
     const data = Object.fromEntries(formData);
     const eventId = new mongoose.Types.ObjectId(params.event_id);
     const userId = new mongoose.Types.ObjectId(user._id);
-    
+
     data.useriD = userId;
 
     const updatedEvent = await mongoose.models.Entry.updateOne(
