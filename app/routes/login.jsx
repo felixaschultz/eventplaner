@@ -46,7 +46,7 @@ export default function Login() {
 
 export async function action({request}){
     return await authenticator.authenticate("user-pass", request, {
-        successRedirect: "/",
+        successRedirect: "/my-events",
         failureRedirect: "/login"
     });
 }

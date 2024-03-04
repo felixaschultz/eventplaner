@@ -52,6 +52,6 @@ export default function App() {
 
 export async function action({request}){
   await authenticator.logout(request, {
-    redirectTo: "/",
+    redirectTo: "/login",
   });
 }
