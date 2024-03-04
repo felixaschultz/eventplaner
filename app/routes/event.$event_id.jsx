@@ -2,11 +2,19 @@ import { Form, useLoaderData, useFetcher, Link } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
 import { useEffect, useRef } from "react";
+
+async function findUser(userId) {
+    const user = await mongoose.models.Account.findOne({_id: userId});
+    return user;
+}
+
 export async function loader({params, request}){
     const user = await authenticator.isAuthenticated(request);
     const eventId = new mongoose.Types.ObjectId(params.event_id);
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
+
+
     if(!event || event.public === false && event.useriD != user?._id){
         throw new Response(null, {
             status: 404,
@@ -14,7 +22,15 @@ export async function loader({params, request}){
         });
     }
 
-    return {event, user};
+    const newCommentArray = event.comment.map(async (comment) => {
+        const user = await findUser(comment._id);
+        comment.user = user;
+        return comment;
+    });
+
+    event.comment = await Promise.all(newCommentArray);
+    
+    return { event, user };
 }
 
 export const meta = () => {
@@ -29,6 +45,7 @@ export default function Event(){
     const fetcher = useFetcher();
     const {event, user} = useLoaderData();
     const comment = useRef();
+
     const attending = event?.participant?.some((participant) => {
         return participant._id === user?._id;
     })
@@ -68,10 +85,11 @@ export default function Event(){
                             return new Date(b.date) - new Date(a.date);
                         }).map((comment, key) => {
                             const date = new Date(comment.date).toLocaleString("da-DK");
+                            console.log(comment);
                             return (
                                 <section key={key} className="mt-8">
                                     <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
-                                    <h3 className="text-l font-bold">{comment.name}, <span className="font-thin">{date}</span></h3>
+                                    <h3 className="text-l font-bold">{(comment.user.image) ? <img alt="" src={comment?.user?.image} />: null}{comment.user.name}, <span className="font-thin">{date}</span></h3>
                                 </section>
                             );
                         }) : <p>No comments yet</p>

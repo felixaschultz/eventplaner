@@ -31,8 +31,15 @@ const entrySchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: "Account",
         },
-        name: String,
         comment: String,
+        user: {
+          name: String,
+          mail: String,
+          _id: {
+            type: Schema.Types.ObjectId,
+            ref: "Account",
+          }
+        },
         date: {
           type: Date,
           default: Date.now,
