@@ -9,12 +9,11 @@ const entrySchema = new Schema(
       type: Date,
       required: true,
     },
-    type: {
+    title: {
       type: String,
-      enum: ["work", "learning", "interesting-thing"],
       required: true,
     },
-    text: {
+    description: {
       type: String,
       required: true,
     },
