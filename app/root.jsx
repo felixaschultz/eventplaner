@@ -55,6 +55,26 @@ export default function App() {
   );
 }
 
+export async function action({request}){
+  const formData = await request.formData();
+  const {_action, search} = Object.fromEntries(formData);
+  if(_action === "search"){
+    const q = search;
+    const events = await mongoose.models.Entry.find({
+      $or: [
+        { title: { $regex: new RegExp(q), $options: 'i' } },
+        { description: { $regex: new RegExp(q), $options: 'i' } }
+      ],
+      public: true
+    });
+    return json(events);
+  }else{
+    await authenticator.logout(request, {
+      redirectTo: "/login",
+    });
+  }
+}
+
 export function ErrorBoundary() {
   let error = useRouteError();
   return (
@@ -86,12 +106,11 @@ export function ErrorBoundary() {
 }
 
 function Header({ user }) {
-  const fetcher = useFetcher();
   let events = useActionData();
   return (
     <header className="grid grid-cols-3 p-8 align-middle text-slate-50 bg-slate-800">
         <Link to="/" className="decoration-transparent"><h1 className="text-3xl font-bold">Event Planer</h1></Link>
-        <fetcher.Form method="post">
+        <Form method="post">
             <input className="p-2 text-slate-700" type="search" name="search" placeholder="Search" />
             <button name="_action" value="search" type="submit">Search</button>
             {
@@ -108,7 +127,7 @@ function Header({ user }) {
                     }
                 </section>
             }
-        </fetcher.Form>
+        </Form>
         <section className="text-right" >
             {
                 user?.user ? <>
@@ -130,23 +149,7 @@ function Header({ user }) {
   );
 }
 
-export async function action({request}){
-  const formData = await request.formData();
-  const {_action, search} = Object.fromEntries(formData);
-  if(_action === "search"){
-    const q = search;
-    const events = await mongoose.models.Entry.find({
-      $or: [
-        { title: { $regex: new RegExp(q), $options: 'i' } },
-        { description: { $regex: new RegExp(q), $options: 'i' } }
-      ],
-      public: true
-    });
-    console.log(events);
-    return json(events);
-  }else{
-    await authenticator.logout(request, {
-      redirectTo: "/login",
-    });
-  }
+function handleSubmit(e){
+  e.preventDefault();
+  console.log("Submit");
 }

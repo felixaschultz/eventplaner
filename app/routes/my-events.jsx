@@ -45,9 +45,9 @@ export default function MyEvents() {
         <section className='mt-8'>
             <h2 className='text-2xl font-bold mb-3'>Events I´m attending</h2>
             <section className='grid grid-cols-2 gap-5'>
-                {myEvents?.map((entry) => (
+                {myEvents?.map((entry, key) => (
                     <>
-                        <article>
+                        <article key={key}>
                             <Link to={`/event/${entry._id}`} key={entry._id}>
                                 <Card key={entry._id} entry={entry} user={user} />
                             </Link>
