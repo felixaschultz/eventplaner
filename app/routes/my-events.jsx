@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import {authenticator} from '../services/auth.server';
 import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import Card from "../components/Card";
 
 export const meta = () => {
@@ -45,12 +45,38 @@ export default function MyEvents() {
         <h2>Events I´m attending</h2>
         <section>
             {myEvents?.map((entry) => (
-                <Link to={`/event/${entry._id}`} key={entry._id}>
-                    <Card key={entry._id} entry={entry} user={user} />
-                </Link>
+                <>
+                    <Link to={`/event/${entry._id}`} key={entry._id}>
+                        <Card key={entry._id} entry={entry} user={user} />
+                    </Link>
+                    <Form className='p-3' method="post">
+                        <input type="hidden" name="event_Id" value={entry._id} />
+                        <button name="_action" value="unattend">Unattend</button>
+                    </Form>
+                </>
             ))}
         </section>
       </div>
     );
 }
+
+export const action = async ({request, params}) => {
+    const user = await authenticator.isAuthenticated(request, {
+        failureRedirect: "/login",
+    });
+    const userId = new mongoose.Types.ObjectId(user._id);
+    const formData = await request.formData();
+    const { _action, event_Id } = Object.fromEntries(formData);
+    const eventId = new mongoose.Types.ObjectId(event_Id);
+    
+    if(_action === "unattend"){
+        return await mongoose.models.Entry.findOneAndUpdate(eventId, {
+            $pull: {
+                participant: {
+                    _id: userId,
+                },
+            },
+        });
+    }
+};
   
