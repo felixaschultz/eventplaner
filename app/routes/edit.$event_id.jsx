@@ -20,24 +20,34 @@ export default function Event(){
 
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
-            <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
-            <Form className="my-5" method="post" onSubmit={handleSubmit}>
-                <button className="bg-red-600 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="delete">Delete Event</button>
-                <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
-            </Form>
-            <fetcher.Form method="post">
-                <fieldset disabled={fetcher.state === "submitting" ? true : false}>
-                    <label htmlFor="title">Title</label>
-                    <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
-                    <label htmlFor="description">Description</label>
-                    <textarea className="block p-2 text-slate-500" id="description" name="description" defaultValue={event.description} />
-                    <label htmlFor="place">Place</label>
-                    <input className="block p-2 text-slate-500" type="text" id="place" name="place" defaultValue={event.place} />
-                    <label htmlFor="date">Date</label>
-                    <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={defaultDate} />
-                    <button  className="bg-slate-300 p-3 px-11 mt-3" type="submit">Update Event</button>
-                </fieldset>
-            </fetcher.Form>
+            <section className="w-1/2 m-auto">
+                <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
+                <Form className="my-5" method="post" onSubmit={handleSubmit}>
+                    <button className="bg-red-600 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="delete">Delete Event</button>
+                    <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
+                </Form>
+                <fetcher.Form method="post">
+                    <fieldset className="grid grid-cols-2 gap-4" disabled={fetcher.state === "submitting" ? true : false}>
+                        <section>
+                            <label htmlFor="title">Title</label>
+                            <input className="w-full block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
+                        </section>
+                        <section>
+                            <label htmlFor="description">Description</label>
+                            <textarea className="w-full block p-2 text-slate-500" id="description" name="description" defaultValue={event.description} />
+                        </section>
+                        <section>
+                            <label htmlFor="place">Place</label>
+                            <input className="w-full block p-2 text-slate-500" type="text" id="place" name="place" defaultValue={event.place} />
+                        </section>
+                        <section>
+                            <label htmlFor="date">Date</label>
+                            <input className="w-full block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={defaultDate} />
+                        </section>
+                        <button  className="bg-slate-600 p-3 px-11 mt-3" type="submit">Update Event</button>
+                    </fieldset>
+                </fetcher.Form>
+            </section>
         </div>
     );
 }
