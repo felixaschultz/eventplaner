@@ -18,7 +18,7 @@ export const links = () => [
 ];
 
 export function meta() {
-  return [{ title: "Work Journal" }];
+  return [{ title: "Event Planer" }];
 }
 
 export default function App() {
