@@ -17,7 +17,7 @@ export async function loader({params, request}){
 }
 
 export default function Event(){
-    const {event} = useLoaderData();
+    const {event, user} = useLoaderData();
     return (
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900">
             <section>
@@ -28,7 +28,11 @@ export default function Event(){
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("da-DK")}</h2>
                 <h3>Attendancies</h3>
                 <Form method="post" onSubmit={handleSubmit}>
-                    <button name="_action" value="attend">Attend</button>
+                    {
+                        event?.useriD !== user._id && (
+                            <button name="_action" value="attend">Attend</button>
+                        )
+                    }
                 </Form>
                 {
                     event?.participant.map((participant) => {

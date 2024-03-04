@@ -55,7 +55,16 @@ const userSchema = new Schema(
       type: String,
       required: true, // Ensure user passwords are required
       select: false // Automatically exclude from query results
-    }
+    },
+    /* participant: [
+      {
+        name: String,
+        _id: {
+          type: Schema.Types.ObjectId,
+          ref: "Entry",
+        }
+      }
+    ] */
   },
   { timestamps: true }
 );
