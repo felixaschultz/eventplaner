@@ -19,7 +19,9 @@ export default function Index() {
     <div className="p-8 text-slate-50 bg-slate-900">
       <h1 className="text-3xl font-bold">Events</h1>
       <section className="grid grid-cols-2 gap-4">
-        {entries.map((entry) => (
+        {entries.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        }).map((entry) => (
           <Link to={`/event/${entry._id}`} key={entry._id}>
             <Card key={entry._id} entry={entry} user={user} />
           </Link>
