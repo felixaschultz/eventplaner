@@ -30,6 +30,8 @@ export default function Event(){
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
                     <label htmlFor="description">Description</label>
                     <textarea className="block p-2 text-slate-500" id="description" name="description" defaultValue={event.description} />
+                    <label htmlFor="place">Place</label>
+                    <input className="block p-2 text-slate-500" type="text" id="place" name="place" defaultValue={event.place} />
                     <label htmlFor="date">Date</label>
                     <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={defaultDate} />
                 </fieldset>

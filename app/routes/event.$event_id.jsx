@@ -6,7 +6,7 @@ export async function loader({params, request}){
     const eventId = new mongoose.Types.ObjectId(params.event_id);
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
-    if(!event || event.public === false){
+    if(!event || event.public === false && event.useriD != user?._id){
         throw new Response(null, {
             status: 404,
             text: "Not Found",
