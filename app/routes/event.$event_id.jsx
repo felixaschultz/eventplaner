@@ -30,16 +30,18 @@ export default function Event(){
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("da-DK")}</h2>
-                <h3 className="text-xl font-bold">Attendancies</h3>
-                {!attending && (
-                <Form className="mt-1" method="post" onSubmit={handleSubmit}>
-                    {
-                        event?.useriD !== user._id && (
-                            <button className="bg-slate-100 rounded-md text-slate-600 px-5 py-3" name="_action" value="attend">Attend</button>
-                        )
-                    }
-                </Form>
-                )}
+                <section className="mt-5">
+                    <h3 className="text-xl font-bold">Attendancies</h3>
+                    {!attending && (
+                    <Form className="mt-1" method="post" onSubmit={handleSubmit}>
+                        {
+                            event?.useriD !== user._id && (
+                                <button className="bg-slate-100 rounded-md text-slate-600 px-7 py-2" name="_action" value="attend">Attend</button>
+                            )
+                        }
+                    </Form>
+                    )}
+                </section>
                 {
                     event?.participant.map((participant) => {
                         return (
@@ -75,7 +77,7 @@ export const action = async ({request, params}) => {
 };
 
 function handleSubmit(e){
-    if (!confirm("Are you sure?")) {
+    if (!confirm("You are about to attend this event. Are you sure?")) {
         e.preventDefault();
     }
 }

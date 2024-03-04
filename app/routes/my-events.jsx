@@ -86,7 +86,7 @@ export const action = async ({request, params}) => {
 };
  
 function handleSubmit(e){
-    if (!confirm("Are you sure?")) {
+    if (!confirm("You are about to unattend this event, are you sure?")) {
         e.preventDefault();
     }
 }
