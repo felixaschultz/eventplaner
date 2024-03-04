@@ -10,7 +10,7 @@ export default function Card({entry, user}) {
     }).format(new Date(entry.date));
 
     return (
-        <div className="card p-8 text-slate-50 bg-slate-900">
+        <div className="card p-8 rounded-md text-slate-50 bg-slate-900">
             <p>{user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? "Public" : "Private")}</p>
             <h1 className="text-1xl font-bold">{entry.title}</h1>
             <p>{entry.description}</p>

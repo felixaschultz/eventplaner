@@ -42,17 +42,22 @@ export default function MyEvents() {
             </Link>
           ))}
         </section>
-        <h2>Events I´m attending</h2>
-        <section>
+        <section className='mt-8'>
+            <h2 className='text-2xl font-bold mb-3'>Events I´m attending</h2>
             {myEvents?.map((entry) => (
                 <>
-                    <Link to={`/event/${entry._id}`} key={entry._id}>
-                        <Card key={entry._id} entry={entry} user={user} />
-                    </Link>
-                    <Form className='p-3' method="post" onSubmit={handleSubmit}>
-                        <input type="hidden" name="event_Id" value={entry._id} />
-                        <button name="_action" value="unattend">Unattend</button>
-                    </Form>
+                    <article>
+                        <Link to={`/event/${entry._id}`} key={entry._id}>
+                            <Card key={entry._id} entry={entry} user={user} />
+                        </Link>
+                        <section>
+                            <h2 className='text-2xl font-bold'>Danger Zone</h2>
+                            <Form className='p-3' method="post" onSubmit={handleSubmit}>
+                                <input type="hidden" name="event_Id" value={entry._id} />
+                                <button className='bg-red-500 text-slate-100 p-3 rounded-md' name="_action" value="unattend">Unattend</button>
+                            </Form>
+                        </section>
+                    </article>
                 </>
             ))}
         </section>
