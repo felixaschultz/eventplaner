@@ -85,7 +85,6 @@ export default function Event(){
                             return new Date(b.date) - new Date(a.date);
                         }).map((comment, key) => {
                             const date = new Date(comment.date).toLocaleString("da-DK");
-                            console.log(comment);
                             return (
                                 <section key={key} className="mt-8">
                                     <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
