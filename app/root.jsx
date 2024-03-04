@@ -6,9 +6,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData
 } from "@remix-run/react";
 import Header from "./components/Header";
 import styles from "./tailwind.css";
+import { authenticator } from "./services/auth.server";
 
 export const links = () => [
   {
@@ -21,7 +23,16 @@ export function meta() {
   return [{ title: "Event Planer" }];
 }
 
+export async function loader({ request }) {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/signin"
+  });
+
+  return { user };
+}
+
 export default function App() {
+  const user = useLoaderData();
   return (
     <html lang="en">
       <head>
@@ -31,7 +42,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header />
+        <Header user={user} />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
