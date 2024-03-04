@@ -51,7 +51,7 @@ export default function Event(){
                     }
                 </div>
                 <p>{event?.description}</p>
-                <article className="mt-10 border-t-2 border-t-slate-300">
+                <article className="mt-10 border-t-2 border-t-slate-400">
                     <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
                     {
                         <fetcher.Form className="mb-15" method="post">
