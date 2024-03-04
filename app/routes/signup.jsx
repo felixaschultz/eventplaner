@@ -26,5 +26,8 @@ export default function Login() {
 }
 
 export function action({request}){
+    const formData = request.formData();
+    const data = Object.fromEntries(formData);
 
+    console.log(data);
 }
