@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData, useFetcher } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
 export async function loader({params, request}){
@@ -17,6 +17,7 @@ export async function loader({params, request}){
 }
 
 export default function Event(){
+    const fetcher = useFetcher();
     const {event, user} = useLoaderData();
     const attending = event?.participant?.some((participant) => {
         return participant._id === user?._id;
@@ -27,6 +28,20 @@ export default function Event(){
             <section>
                 <h1 className="text-3xl font-bold">{event?.title}</h1>
                 <p>{event?.description}</p>
+                <article>
+                    <h2 className="text-2xl font-bold">Comments</h2>
+                    <fetcher.Form method="post">
+                        <textarea className="block p-2 text-slate-500" id="comment" name="comment" />
+                        <button className="bg-slate-300 p-3 px-11 mt-3" name="_action" value="comment" type="submit">Add Comment</button>
+                    </fetcher.Form>
+                    {
+                        event?.comments?.map((comment, key) => {
+                            return (
+                                <p key={key}>{comment}</p>
+                            );
+                        })
+                    }
+                </article>
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("da-DK")}</h2>
@@ -60,22 +75,28 @@ export const action = async ({request, params}) => {
     const user = await authenticator.isAuthenticated(request);
     const eventId = new mongoose.Types.ObjectId(params.event_id);
     const userId = new mongoose.Types.ObjectId(user._id);
-    
-    await mongoose.models.Entry.findOneAndUpdate(eventId, {
-        $push: {
-            participant: {
-                _id: userId,
-                name: user.name,
-            },
-        },
-    });
+    const formData = await request.formData();
+    const { _action } = Object.fromEntries(formData);
 
-    return new Response(null, {
-        status: 302,
-        headers: {
-            location: `/event/${params.event_id}`,
-        },
-    });
+    if(_action === "attend"){
+        return await mongoose.models.Entry.findOneAndUpdate(eventId, {
+            $push: {
+                participant: {
+                    _id: userId,
+                    name: user.name,
+                },
+            },
+        });
+    }else if (_action === "comment"){
+        const { comment } = Object.fromEntries(formData);
+        return await mongoose.models.Entry.findOneAndUpdate(eventId, {
+            $push: {
+                comments: comment,
+            },
+        });
+    
+    }
+    
 };
 
 function handleSubmit(e){

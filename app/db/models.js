@@ -25,6 +25,15 @@ const entrySchema = new Schema(
       type: String,
       required: true,
     },
+    comment: [
+      {
+        useriD: {
+          type: Schema.Types.ObjectId,
+          ref: "Account",
+        },
+        comment: String
+      }
+    ],
     participant: [
       {
         name: String,
