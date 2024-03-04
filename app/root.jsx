@@ -12,6 +12,7 @@ import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
 import Header from "./components/Header";
 import styles from "./tailwind.css";
 import { authenticator } from "./services/auth.server";
+import mongoose from "mongoose";
 
 export const links = () => [
   {
@@ -52,9 +53,16 @@ export default function App() {
 }
 
 export async function action({request}){
-  await authenticator.logout(request, {
-    redirectTo: "/login",
-  });
+  const formData = await request.formData();
+  const {_action} = Object.fromEntries(formData);
+  if(_action === "search"){
+    const event = await mongoose.models.Entry.find({title: formData.get("search")});
+    return event;
+  }else{
+    await authenticator.logout(request, {
+      redirectTo: "/login",
+    });
+  }
 }
 
 export function ErrorBoundary() {
