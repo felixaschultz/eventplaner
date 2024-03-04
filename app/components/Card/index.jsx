@@ -10,7 +10,7 @@ export default function Card({entry, user}) {
     }).format(new Date(entry.date));
 
     return (
-        <article className="card p-8 rounded-md text-slate-50 bg-slate-900">
+        <Link to={"/event/" + entry._id} className="card p-8 rounded-md text-slate-50 bg-slate-900">
             <section>
                 <p>{user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? "Public" : "Private")}</p>
                 <h1 className="text-1xl font-bold">{entry.title}</h1>
@@ -20,6 +20,6 @@ export default function Card({entry, user}) {
             {user && user._id === entry.useriD && (
                 <Link className="bg-slate-600 rounded-md text-slate-200 px-6 py-1" to={`/edit/${entry._id}`}>Edit</Link>
             )}
-        </article>
+        </Link>
     );
 }

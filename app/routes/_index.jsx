@@ -22,9 +22,7 @@ export default function Index() {
         {entries.sort((a, b) => {
           return new Date(b.date) - new Date(a.date);
         }).map((entry) => (
-          <Link to={`/event/${entry._id}`} key={entry._id}>
-            <Card key={entry._id} entry={entry} user={user} />
-          </Link>
+          <Card key={entry._id} entry={entry} user={user} />
         ))}
       </section>
     </div>

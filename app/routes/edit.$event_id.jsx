@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useFetcher } from "@remix-run/react";
 import { authenticator } from "~/services/auth.server";
 import { mongoose } from "mongoose";
 import { Form } from "@remix-run/react";
@@ -15,6 +15,7 @@ export async function loader({request, params}){
 
 export default function Event(){
     const {event} = useLoaderData();
+    const fetcher = useFetcher();
     const defaultDate = new Date(event.date).toISOString().slice(0, 16);
 
     return (
@@ -24,8 +25,8 @@ export default function Event(){
                 <button className="bg-red-600 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="delete">Delete Event</button>
                 <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
             </Form>
-            <Form method="post">
-                <fieldset>
+            <fetcher.Form method="post">
+                <fieldset disabled={fetcher.state === "submitting" ? true : false}>
                     <label htmlFor="title">Title</label>
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
                     <label htmlFor="description">Description</label>
@@ -34,9 +35,9 @@ export default function Event(){
                     <input className="block p-2 text-slate-500" type="text" id="place" name="place" defaultValue={event.place} />
                     <label htmlFor="date">Date</label>
                     <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={defaultDate} />
+                    <button  className="bg-slate-300 p-3 px-11 mt-3" type="submit">Update Event</button>
                 </fieldset>
-                <button  className="bg-slate-300 p-3 px-11 mt-3" type="submit">Update Event</button>
-            </Form>
+            </fetcher.Form>
         </div>
     );
 }

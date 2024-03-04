@@ -37,9 +37,7 @@ export default function MyEvents() {
         <h1 className="text-3xl font-bold">My Events</h1>
         <section className="grid grid-cols-2 gap-4">
           {entries.map((entry) => (
-            <Link  to={`/event/${entry._id}`} key={entry._id}>
-              <Card key={entry._id} entry={entry} user={user} />
-            </Link>
+            <Card key={entry._id} entry={entry} user={user} />
           ))}
         </section>
         <section className='mt-8'>
@@ -48,9 +46,7 @@ export default function MyEvents() {
                 {myEvents?.map((entry, key) => (
                     <>
                         <article key={key}>
-                            <Link to={`/event/${entry._id}`} key={entry._id}>
-                                <Card key={entry._id} entry={entry} user={user} />
-                            </Link>
+                            <Card key={entry._id} entry={entry} user={user} />
                             <section>
                                 <h2 className='text-2xl font-bold'>Danger Zone</h2>
                                 <Form className='p-3' method="post" onSubmit={handleSubmit}>
