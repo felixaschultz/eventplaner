@@ -1,6 +1,7 @@
 import { Form, useLoaderData, useFetcher } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
+import { useEffect, useRef } from "react";
 export async function loader({params, request}){
     const user = await authenticator.isAuthenticated(request);
     const eventId = new mongoose.Types.ObjectId(params.event_id);
@@ -19,9 +20,16 @@ export async function loader({params, request}){
 export default function Event(){
     const fetcher = useFetcher();
     const {event, user} = useLoaderData();
+    const comment = useRef();
     const attending = event?.participant?.some((participant) => {
         return participant._id === user?._id;
     })
+
+    useEffect(() => {
+        if(comment.current && fetcher.state === "submitting"){
+            comment.current.value = "";
+        }
+    }, [fetcher.state, comment]);
 
     return (
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
@@ -30,14 +38,23 @@ export default function Event(){
                 <p>{event?.description}</p>
                 <article>
                     <h2 className="text-2xl font-bold">Comments</h2>
-                    <fetcher.Form method="post">
-                        <textarea className="block p-2 text-slate-500" id="comment" name="comment" />
-                        <button className="bg-slate-300 p-3 px-11 mt-3" name="_action" value="comment" type="submit">Add Comment</button>
-                    </fetcher.Form>
                     {
-                        event?.comments?.map((comment, key) => {
+                        user && (
+                            <fetcher.Form method="post">
+                                <fieldset disabled={fetcher.state === "submitting" ? true : false}>
+                                    <textarea ref={comment} className="block p-2 text-slate-500" id="comment" name="comment" />
+                                </fieldset>
+                                <button className="bg-slate-600 p-3 px-11 mt-3" name="_action" value="comment" type="submit">Add Comment</button>
+                            </fetcher.Form>
+                        )
+                    }
+                    {
+                        event?.comment?.map((comment, key) => {
                             return (
-                                <p key={key}>{comment}</p>
+                                <>
+                                    <p key={key}>{comment.comment}</p>
+                                    <p>- {comment.name}</p>
+                                </>
                             );
                         })
                     }
@@ -91,7 +108,11 @@ export const action = async ({request, params}) => {
         const { comment } = Object.fromEntries(formData);
         return await mongoose.models.Entry.findOneAndUpdate(eventId, {
             $push: {
-                comments: comment,
+                comment: {
+                    _id: userId,
+                    name: user.name,
+                    comment,
+                },
             },
         });
     
