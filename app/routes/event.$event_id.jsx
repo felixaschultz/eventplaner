@@ -36,8 +36,8 @@ export default function Event(){
             <section>
                 <h1 className="text-3xl font-bold">{event?.title}</h1>
                 <p>{event?.description}</p>
-                <article>
-                    <h2 className="text-2xl font-bold">Comments</h2>
+                <article className="mt-10 border-t-2 border-t-slate-300">
+                    <h2 className="text-2xl font-bold mt-3">Comments</h2>
                     {
                         user && (
                             <fetcher.Form method="post">
@@ -49,14 +49,14 @@ export default function Event(){
                         )
                     }
                     {
-                        event?.comment?.map((comment, key) => {
+                        (event?.comment && event?.comment.length > 0) ? event?.comment.map((comment, key) => {
                             return (
-                                <>
-                                    <p key={key}>{comment.comment}</p>
-                                    <p>- {comment.name}</p>
-                                </>
+                                <section key={key} className="mt-8">
+                                    <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
+                                    <h3 className="text-l font-bold">{comment.name}</h3>
+                                </section>
                             );
-                        })
+                        }) : <p>No comments yet</p>
                     }
                 </article>
             </section>

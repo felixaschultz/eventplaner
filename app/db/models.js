@@ -32,7 +32,11 @@ const entrySchema = new Schema(
           ref: "Account",
         },
         name: String,
-        comment: String
+        comment: String,
+        date: {
+          type: Date,
+          default: Date.now,
+        },
       }
     ],
     participant: [
