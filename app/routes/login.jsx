@@ -11,14 +11,14 @@ export default function Login() {
         <Form method="post">
             <div>
                 <label htmlFor="email">Email</label>
-                <input className="" type="email" id="email" name="email" />
+                <input className="block p-2 text-slate-500" type="email" id="email" name="email" />
             </div>
             <div>
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" />
+                <input className="block p-2 text-slate-500" type="password" id="password" name="password" />
             </div>
             <div>
-                <button type="submit">Signup</button>
+                <button className="bg-slate-300 p-3 px-11 mt-3" type="submit">Signup</button>
             </div>
         </Form>
     </div>
