@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import {authenticator} from '../services/auth.server';
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import Card from "../components/Card";
 
 export async function loader({ request }) {
