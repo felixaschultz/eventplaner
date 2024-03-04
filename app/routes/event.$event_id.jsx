@@ -17,6 +17,14 @@ export async function loader({params, request}){
     return {event, user};
 }
 
+export const meta = () => {
+    return [
+        {
+            title: "Event | Event Planer"
+        }
+    ]
+};
+
 export default function Event(){
     const fetcher = useFetcher();
     const {event, user} = useLoaderData();
