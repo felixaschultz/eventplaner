@@ -12,9 +12,12 @@ export default function Index() {
 
   return (
     <div className="p-8 text-slate-50 bg-slate-900">
-      <code>
-        <pre className="animate-pulse">{JSON.stringify(entries, null, 2)}</pre>
-      </code>
+      <h1 className="text-3xl font-bold">Entries</h1>
+      <ul>
+        {entries.map((entry) => (
+          <li key={entry._id}>{entry.text}</li>
+        ))}
+      </ul>
     </div>
   );
 }
