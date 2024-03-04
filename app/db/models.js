@@ -1,5 +1,8 @@
 import { mongoose } from "mongoose";
+<<<<<<< HEAD
 import bcrypt from "bcryptjs";
+=======
+>>>>>>> 2d848f7 (Initial commit)
 
 const { Schema } = mongoose;
 
@@ -9,6 +12,7 @@ const entrySchema = new Schema(
       type: Date,
       required: true,
     },
+<<<<<<< HEAD
     useriD: {
       type: Schema.Types.ObjectId,
       ref: "Account",
@@ -69,12 +73,24 @@ const entrySchema = new Schema(
       required: true,
       default: false,
     },
+=======
+    type: {
+      type: String,
+      enum: ["work", "learning", "interesting-thing"],
+      required: true,
+    },
+    text: {
+      type: String,
+      required: true,
+    },
+>>>>>>> 2d848f7 (Initial commit)
   },
   // Automatically add `createdAt` and `updatedAt` timestamps:
   // https://mongoosejs.com/docs/timestamps.html
   { timestamps: true },
 );
 
+<<<<<<< HEAD
 const messengerSchema = new Schema({
   participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   messages: [{
@@ -118,6 +134,8 @@ userSchema.pre("save", async function (next) {
   next(); // continue
 });
 
+=======
+>>>>>>> 2d848f7 (Initial commit)
 // For each model you want to create, please define the model's name, the
 // associated schema (defined above), and the name of the associated collection
 // in the database (which will be created automatically).
@@ -127,6 +145,7 @@ export const models = [
     schema: entrySchema,
     collection: "entries",
   },
+<<<<<<< HEAD
   {
     name: "Account",
     schema: userSchema,
@@ -137,4 +156,6 @@ export const models = [
     schema: messengerSchema,
     collection: "messages",
   },
+=======
+>>>>>>> 2d848f7 (Initial commit)
 ];

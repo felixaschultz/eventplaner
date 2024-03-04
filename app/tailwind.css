@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind components;
+<<<<<<< HEAD
 @tailwind utilities;
 
 body{
@@ -141,3 +142,6 @@ body{
 .mt-small{
     margin: 2px 10px;
 }
+=======
+@tailwind utilities;
+>>>>>>> 2d848f7 (Initial commit)

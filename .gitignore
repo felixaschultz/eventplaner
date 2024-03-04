@@ -3,6 +3,10 @@ node_modules
 /.cache
 /build
 /public/build
+<<<<<<< HEAD
 .env
 
 package-lock.json
+=======
+.env
+>>>>>>> 2d848f7 (Initial commit)

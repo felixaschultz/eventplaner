@@ -36,5 +36,9 @@ async function insertData() {
       text: "Remix Work Journal",
     },
   ];
+<<<<<<< HEAD
   /* await mongoose.models.Entry.insertMany(entries); */
+=======
+  await mongoose.models.Entry.insertMany(entries);
+>>>>>>> 2d848f7 (Initial commit)
 }
