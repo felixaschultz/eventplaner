@@ -5,13 +5,10 @@ import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
 
 export async function loader({ request }) {
-  const user = await authenticator.isAuthenticated(request);
-  const userId = new mongoose.Types.ObjectId(user?._id)
-  const loggedIN = ((user?._id ? { useriD: userId } : {
-    public: true
-  }));
 
-  const entries = await mongoose.models.Entry.find(loggedIN);
+  const entries = await mongoose.models.Entry.find({
+    public: true,
+  });
   return json({ entries });
 }
 

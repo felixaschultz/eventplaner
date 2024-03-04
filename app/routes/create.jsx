@@ -45,8 +45,11 @@ export const action = async ({ request }) => {
 
     if(NewEvent){
         return {
-            status: 201,
-            body: "Event Created",
+            status: 302,
+            headers: {
+                location: "/my-events",
+            },
+            body: "Redirecting...",
         };
     }
 };
