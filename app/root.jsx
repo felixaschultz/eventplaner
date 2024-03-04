@@ -57,13 +57,14 @@ export default function App() {
 
 export async function action({request}){
   const formData = await request.formData();
-  const {_action, search} = Object.fromEntries(formData);
+  const {_action, search, date} = Object.fromEntries(formData);
   if(_action === "search"){
     const q = search;
     const events = await mongoose.models.Entry.find({
       $or: [
         { title: { $regex: new RegExp(q), $options: 'i' } },
-        { description: { $regex: new RegExp(q), $options: 'i' } }
+        { description: { $regex: new RegExp(q), $options: 'i' } },
+        { date: { $gte: date } }
       ],
       public: true
     });
@@ -112,6 +113,7 @@ function Header({ user }) {
         <Link to="/" className="decoration-transparent"><h1 className="text-3xl font-bold">Event Planer</h1></Link>
         <Form method="post">
             <input className="p-2 text-slate-700" type="search" name="search" placeholder="Search" />
+            <input className="p-2 text-slate-700" type="datetime-local" name="date" />
             <button name="_action" value="search" type="submit">Search</button>
             {
                 !events ? null : 
@@ -147,9 +149,4 @@ function Header({ user }) {
         </section>
     </header>
   );
-}
-
-function handleSubmit(e){
-  e.preventDefault();
-  console.log("Submit");
 }
