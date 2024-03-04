@@ -30,18 +30,20 @@ export default function Event(){
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("da-DK")}</h2>
-                <h3>Attendancies</h3>
-                <Form method="post" onSubmit={handleSubmit}>
+                <h3 className="text-xl font-bold">Attendancies</h3>
+                {!attending && (
+                <Form className="mt-1" method="post" onSubmit={handleSubmit}>
                     {
-                        event?.useriD !== user._id && !attending && (
-                            <button name="_action" value="attend">Attend</button>
+                        event?.useriD !== user._id && (
+                            <button className="bg-slate-100 rounded-md text-slate-600 px-5 py-3" name="_action" value="attend">Attend</button>
                         )
                     }
                 </Form>
+                )}
                 {
                     event?.participant.map((participant) => {
                         return (
-                            <p key={participant._id}>{participant.name}</p>
+                            <p className="" key={participant._id}>{participant._id === user._id ? "You" : participant.name}</p>
                         );
                     })
                 }
