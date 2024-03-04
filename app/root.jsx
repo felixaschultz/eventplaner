@@ -110,8 +110,8 @@ export function ErrorBoundary() {
 function Header({ user }) {
   let events = useActionData();
   return (
-    <header className="grid grid-cols-3 p-8 align-middle text-slate-50 bg-slate-800">
-        <Link to="/" className="decoration-transparent"><h1 className="text-3xl font-bold">Event Planer</h1></Link>
+    <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
+        <Link to="/" className="flex place-items-center decoration-transparent"><h1 className="text-3xl font-bold">Event Planer</h1></Link>
         <Form method="post">
             <input className="p-2 text-slate-700" type="search" name="search" placeholder="Search" />
             <input className="p-2 text-slate-700" type="datetime-local" name="date" />
@@ -143,8 +143,8 @@ function Header({ user }) {
                 </>
                 :
                 <>
-                    <Link className="text-right p-8" to="/login">Login</Link>
-                    <Link className="text-right p-8" to="/signup">Signup</Link>
+                    <Link className="inline-block w-max bg-slate-400 text-right px-8 py-3 rounded-md" to="/login">Login</Link>
+                    <Link className="inline-block w-max text-right px-8 py-3" to="/signup">Signup</Link>
                 </>
             }
         </section>
