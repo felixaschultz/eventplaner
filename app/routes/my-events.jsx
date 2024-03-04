@@ -49,7 +49,7 @@ export default function MyEvents() {
                     <Link to={`/event/${entry._id}`} key={entry._id}>
                         <Card key={entry._id} entry={entry} user={user} />
                     </Link>
-                    <Form className='p-3' method="post">
+                    <Form className='p-3' method="post" onSubmit={handleSubmit}>
                         <input type="hidden" name="event_Id" value={entry._id} />
                         <button name="_action" value="unattend">Unattend</button>
                     </Form>
@@ -79,4 +79,9 @@ export const action = async ({request, params}) => {
         });
     }
 };
-  
+ 
+function handleSubmit(e){
+    if (!confirm("Are you sure?")) {
+        e.preventDefault();
+    }
+}
