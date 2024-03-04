@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useFetcher } from "@remix-run/react";
+import { Form, useLoaderData, useFetcher, Link } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
 import { useEffect, useRef } from "react";
@@ -35,6 +35,11 @@ export default function Event(){
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
             <section>
                 <h1 className="text-3xl font-bold">{event?.title}</h1>
+                {
+                    event?.useriD === user?._id && (
+                        <Link className="w-max bg-slate-500 block mx-2 rounded-md text-slate-200 px-6 py-1 my-5" to={"/edit/" + event._id}>Edit event</Link>
+                    )
+                }
                 <p>{event?.description}</p>
                 <article className="mt-10 border-t-2 border-t-slate-300">
                     <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
