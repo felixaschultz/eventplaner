@@ -15,18 +15,20 @@ export async function loader({request, params}){
 
 export default function Event(){
     const {event} = useLoaderData();
+    const defaultDate = new Date(event.date).toISOString().slice(0, 16);
+
     return (
         <div className="p-8 text-slate-50 bg-slate-900">
             <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
             <Form method="post">
-                <button name="_action" value="public">Make public</button>
+                <button name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
                 <fieldset>
                     <label htmlFor="title">Title</label>
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
                     <label htmlFor="description">Description</label>
                     <textarea className="block p-2 text-slate-500" id="description" name="description" defaultValue={event.description} />
                     <label htmlFor="date">Date</label>
-                    <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={event.date} />
+                    <input className="block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={defaultDate} />
                 </fieldset>
                 <button  className="bg-slate-300 p-3 px-11 mt-3" type="submit">Update Event</button>
             </Form>
@@ -48,7 +50,7 @@ export const action = async ({request, params}) => {
 
     if(_action === "public"){
         const entry = await mongoose.models.Entry.findById(eventId);
-        entry.public = true;
+        entry.public = !entry.public;
         await entry.save();
         return new Response(null, {
             status: 302,
