@@ -16,7 +16,7 @@ export default function Card({entry, user}) {
             <p>{entry.description}</p>
             <time dateTime={entry.date}>{formattedDate} - { time }</time>
             {user && user._id === entry.useriD && (
-                <Link to={`/edit/${entry._id}`}>Edit</Link>
+                <Link className="bg-slate-600 rounded-md text-slate-200 px-6 py-1" to={`/edit/${entry._id}`}>Edit</Link>
             )}
         </div>
     );

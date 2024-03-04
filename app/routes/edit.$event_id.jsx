@@ -20,11 +20,11 @@ export default function Event(){
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
             <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
-            <Form method="post" onSubmit={handleSubmit}>
-                <button name="_action" value="delete">Delete Event</button>
+            <Form className="my-5" method="post" onSubmit={handleSubmit}>
+                <button className="bg-red-600 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="delete">Delete Event</button>
+                <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
             </Form>
             <Form method="post">
-                <button name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
                 <fieldset>
                     <label htmlFor="title">Title</label>
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
