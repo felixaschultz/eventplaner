@@ -9,6 +9,10 @@ const entrySchema = new Schema(
       type: Date,
       required: true,
     },
+    useriD: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
     title: {
       type: String,
       required: true,
