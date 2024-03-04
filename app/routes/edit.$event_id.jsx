@@ -101,7 +101,11 @@ export const action = async ({request, params}) => {
 };
 
 function handleSubmit(e){
-    if (!confirm("Are you sure, you want to delete this event?")) {
+    const value = e.nativeEvent.submitter.value;
+    if(value === "delete" && !confirm(`Are you sure, you want to delete this event?`)){
         e.preventDefault();
+    }else if(value === "public" && !confirm(`Are you sure, you want to make this event ${e.nativeEvent.submitter.innerText.indexOf("Public") > -1 ? "public" : "private"}?`)){
+        e.preventDefault();
+
     }
 }
