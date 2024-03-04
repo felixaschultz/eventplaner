@@ -66,17 +66,21 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body className="flex h-full flex-col items-center justify-center">
-        <p className="text-3xl">Whoops!</p>
-        {isRouteErrorResponse(error) ? (
-          <p>
-            {error.status} – {error.statusText}
-          </p>
-        ) : error instanceof Error ? (
-          <p>{error.message}</p>
-        ) : (
-          <p>Something happened.</p>
-        )}
+      <body>
+        <Header />
+        <section className="flex h-full flex-col items-center justify-center">
+          <p className="text-3xl">Whoops!</p>
+          {isRouteErrorResponse(error) ? (
+            <p>
+              {error.status} – {error.statusText}
+            </p>
+          ) : error instanceof Error ? (
+            <p>{error.message}</p>
+          ) : (
+            <p>Something happened.</p>
+          )}
+          <Link to="/">Go back home</Link>
+        </section>
         <Scripts />
       </body>
     </html>
