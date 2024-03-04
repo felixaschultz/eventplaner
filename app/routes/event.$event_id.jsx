@@ -79,7 +79,7 @@ export default function Event(){
                 </article>
             </section>
             <section>
-                <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("da-DK")}</h2>
+                <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
                 <h3>Place: {event?.place}</h3>
                 <section className="mt-5">
                     <h3 className="text-xl font-bold">Attendancies</h3>
