@@ -49,11 +49,14 @@ export default function Event(){
                         )
                     }
                     {
-                        (event?.comment && event?.comment.length > 0) ? event?.comment.map((comment, key) => {
+                        (event?.comment && event?.comment.length > 0) ? event?.comment.sort((a,b) => {
+                            return new Date(b.date) - new Date(a.date);
+                        }).map((comment, key) => {
+                            const date = new Date(comment.date).toLocaleString("da-DK");
                             return (
                                 <section key={key} className="mt-8">
                                     <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
-                                    <h3 className="text-l font-bold">{comment.name}</h3>
+                                    <h3 className="text-l font-bold">{comment.name} - {date}</h3>
                                 </section>
                             );
                         }) : <p>No comments yet</p>
