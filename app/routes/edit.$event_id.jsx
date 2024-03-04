@@ -22,6 +22,7 @@ export default function Event(){
             <h1 className="text-3xl font-bold">Edit Event: {event.title}</h1>
             <Form method="post">
                 <button name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
+                <button className="block p-2" name="_action" value="delete">Delete Event</button>
                 <fieldset>
                     <label htmlFor="title">Title</label>
                     <input className="block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
@@ -52,6 +53,14 @@ export const action = async ({request, params}) => {
         const entry = await mongoose.models.Entry.findById(eventId);
         entry.public = !entry.public;
         await entry.save();
+        return new Response(null, {
+            status: 302,
+            headers: {
+                location: "/my-events",
+            },
+        });
+    }else if(_action === "delete"){
+        await mongoose.models.Entry.findByIdAndDelete(params.event_id);
         return new Response(null, {
             status: 302,
             headers: {
