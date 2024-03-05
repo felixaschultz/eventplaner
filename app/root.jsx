@@ -131,12 +131,12 @@ function Header({ user }) {
                 </section>
             }
         </Form>
-        <section className="text-right" >
+        <section className="flex justify-center items-center flex-row text-right" >
             {
                 user?.user ? <>
-                    <Link className="flex justify-center items-center text-right p-3" to="/my-events">My Events</Link>
-                    <Link className="flex justify-center items-center text-right p-3" to="/create">Create Event</Link>
-                    <Link className="flex justify-center items-center text-right p-3" to={"/profile/" + user?.user?._id}>{user?.user?.name}</Link>
+                    <Link className="text-right p-3" to="/my-events">My Events</Link>
+                    <Link className="text-right p-3" to="/create">Create Event</Link>
+                    <Link className="text-right p-3" to={"/profile/" + user?.user?._id}>{user?.user?.name}</Link>
                     <Form className="inline" method="post">
                         <button className="text-right p-4" type="submit">Logout</button>
                     </Form>
