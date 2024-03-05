@@ -1,6 +1,7 @@
 import { Form } from "@remix-run/react";
 import "../Styles/login-signup.css";
 import mongoose from "mongoose";
+import { sessionStorage, commitSession } from "~/services/session.server";
 
 export const meta = () => {
     return [{ title: "Signup" }];
@@ -44,10 +45,14 @@ export async function action({request}){
         };
     }
 
+    const session = await sessionStorage.getSession(request.headers.get("Cookie"));
+    session.set("userId", NewUser._id);
+    await commitSession(session);
+    
     return {
         status: 302,
         headers: {
-            location: "/login",
+            location: "/my-events",
         },
         body: "Redirecting...",
     };

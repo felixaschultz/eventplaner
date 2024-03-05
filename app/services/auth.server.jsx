@@ -22,8 +22,6 @@ async function verifyUser({ mail, password }) {
   if (!isPasswordValid || password == null || password === "" || password === undefined) {
     throw new AuthorizationError("Invalid password");
   }
-
-  console.log("User found: ", user);
   /* user.password = undefined; */
   return user;
 }
