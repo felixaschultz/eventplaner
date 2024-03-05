@@ -130,10 +130,10 @@ export default function Event(){
                                         <li className="block py-3 pl-5" key={participant._id}>{
                                             (user && participant?._id === user?._id) ?  
                                                 (participant.user.image) ? <img alt="" src={participant?.user?.image} /> + "You"
-                                                    : participant.user.name + " (You)"
+                                                    : participant.name + " (You)"
                                                     : (participant.user.image) ? <img alt="" src={participant?.user?.image} /> 
-                                                        + participant.user.name
-                                                        : null + participant.user.name}
+                                                        + participant.name
+                                                        : null + participant.name}
                                         </li>
                                     );
                                 })
