@@ -29,7 +29,7 @@ async function verifyUser({ mail, password }) {
 // Tell the Authenticator to use the form strategy
 authenticator.use(
     new FormStrategy(async ({ form }) => {
-      let mail = form.get("email");
+      let mail = form.get("mail");
       let password = form.get("password");
       let user = null;
   

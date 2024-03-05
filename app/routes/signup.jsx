@@ -36,6 +36,8 @@ export async function action({request}){
     const rawBody = await request.text();
     const formData = new URLSearchParams(rawBody);
     const data = Object.fromEntries(formData);
+    const formData2 = await request.formData();
+
 
     const NewUser = await mongoose.models.Account.create(data);
 
@@ -46,10 +48,17 @@ export async function action({request}){
         };
     }
     if(NewUser){
-        const modifiedRequest = new Request(request, { body: rawBody });
+        return new Response(null, {
+            status: 302,
+            headers: {
+                Location: "/login",
+            },
+        });
+        /* console.log(data);
+        const modifiedRequest = new Request(request, { body: Object.fromEntries(formData2) });
         return await authenticator.authenticate("user-pass", modifiedRequest, {
             successRedirect: "/my-events",
             failureRedirect: "/login"
-        });
+        }); */
     }
 }
