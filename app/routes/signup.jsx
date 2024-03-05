@@ -48,12 +48,14 @@ export async function action({request}){
     const session = await sessionStorage.getSession(request.headers.get("Cookie"));
     session.set("userId", NewUser._id);
     await commitSession(session);
+
+    if(NewUser){
+        return {
+            status: 302,
+            headers: {
+                location: "/my-events",
+            },
+        };
+    }
     
-    return {
-        status: 302,
-        headers: {
-            location: "/my-events",
-        },
-        body: "Redirecting...",
-    };
 }
