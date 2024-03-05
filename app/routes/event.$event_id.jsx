@@ -95,7 +95,7 @@ export default function Event(){
                             return (
                                 <section key={key} className="mt-8">
                                     <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
-                                    <h3 className="text-l font-bold">{(comment.user.image) ? <img alt="" src={comment?.user?.image} />: null}{comment.user.name}, <span className="font-thin">{date}</span></h3>
+                                    <h3 className="font-medium">{(comment.user.image) ? <img alt="" src={comment?.user?.image} />: null}{comment.user.name}, <span className="font-thin">{date}</span></h3>
                                 </section>
                             );
                         }) : <p>No comments yet</p>
