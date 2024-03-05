@@ -93,7 +93,7 @@ export default function Event(){
                         (event?.comment && event?.comment.length > 0) ? event?.comment.sort((a,b) => {
                             return new Date(b.date) - new Date(a.date);
                         }).map((comment, key) => {
-                            const date = new Date(comment.date).toLocaleString("da-DK");
+                            const date = new Date(comment.date).toLocaleString("de-DE");
                             return (
                                 <section key={key} className="mt-8">
                                     <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
