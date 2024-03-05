@@ -22,7 +22,7 @@ async function verifyUser({ mail, password }) {
   if (!isPasswordValid || password == null || password === "" || password === undefined) {
     throw new AuthorizationError("Invalid password");
   }
-  /* user.password = undefined; */
+  user.password = undefined;
   return user;
 }
 
