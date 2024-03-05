@@ -111,6 +111,7 @@ export function ErrorBoundary() {
 function Header({ user }) {
   console.log(user);
   let events = useActionData();
+  console.log(events);
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
@@ -173,5 +174,5 @@ function Header({ user }) {
 }
 
 function handleSubmit(event){
-  event.preventDefault();
+  /* event.preventDefault(); */
 }
