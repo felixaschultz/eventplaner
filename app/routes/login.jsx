@@ -29,11 +29,11 @@ export default function Login() {
         <Form method="post">
             <div className="mb-4">
                 <label htmlFor="email">Email</label>
-                <Input type="email" id="email" name="email" />
+                <Input type="email" id="email" name="mail" />
             </div>
             <div>
                 <label htmlFor="password">Password</label>
-                <input className="block p-2 text-slate-500" type="password" id="password" name="password" />
+                <Input type="password" id="password" name="password" />
             </div>
             <div className="error-message">{loaderData?.error ? <p>{loaderData?.error?.message}</p> : null}</div>
             <div>
