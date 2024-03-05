@@ -132,7 +132,7 @@ export default function Event(){
                                                     : participant.name + " (You)"
                                                     : (participant.user.image) ? <img alt="" src={participant?.user?.image} /> 
                                                         + participant.name
-                                                        : null + participant.name}
+                                                        : "" + participant.name}
                                         </li>
                                     );
                                 })
