@@ -113,9 +113,9 @@ function Header({ user }) {
     <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
         <Link to="/" className="flex place-items-center decoration-transparent"><h1 className="text-3xl font-thin uppercase italic font-serif">EventPlaner</h1></Link>
         <Form className="flex" method="post">
-            <input className="p-2 text-slate-700" type="search" name="search" placeholder="Search" />
-            <input className="p-2 text-slate-700 mx-2" type="datetime-local" name="date" />
-            <button className="p-2 bg-slate-300 text-slate-600 rounded-md" name="_action" value="search" type="submit">Search</button>
+            <input className="px-3 text-slate-700 rounded-md" type="search" name="search" placeholder="Search" />
+            <input className="px-3 text-slate-700 mx-2 rounded-md" type="datetime-local" name="date" />
+            <button className="px-3 bg-slate-300 text-slate-600 rounded-md" name="_action" value="search" type="submit">Search</button>
             {
                 !events ? null : 
                 <section className="search-container">
