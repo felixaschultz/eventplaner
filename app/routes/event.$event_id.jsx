@@ -14,6 +14,8 @@ export async function loader({params, request}){
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
 
+    console.log(event);
+
 
     if(!event || event.public === false && event.useriD != user?._id){
         throw new Response(null, {

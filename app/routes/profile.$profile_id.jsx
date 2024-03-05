@@ -27,13 +27,14 @@ export const loader = async ({request, params}) => {
 export default function Profile(){
     const {profile} = useLoaderData();
     return (
-        <div className="p-2">
+        <div className="w-1/2 m-auto p-2">
             {
-                profile.image && (
-                    <img src={profile.image} alt={profile.name} />
-                )
+                profile.image ?
+                    <img src={profile.image} alt={profile.name} /> :
+                    <img src="https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg" alt={profile.name} />
             }
             <h1 className="text-3xl">{profile.name}</h1>
+            
         </div>
     );
 }

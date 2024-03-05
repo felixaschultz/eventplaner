@@ -16,6 +16,7 @@ import styles from "./tailwind.css";
 import { authenticator } from "./services/auth.server";
 import mongoose from "mongoose";
 import { Form } from "react-router-dom";
+import { useState } from "react";
 
 export const links = () => [
   {
@@ -108,10 +109,12 @@ export function ErrorBoundary() {
 }
 
 function Header({ user }) {
+  console.log(user);
   let events = useActionData();
+  const [openMenu, setOpenMenu] = useState(false);
   return (
     <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
-        <Link to="/" className="flex place-items-center decoration-transparent"><h1 className="text-3xl font-thin uppercase italic font-serif">EventPlaner</h1></Link>
+        <Link to="/" className="flex place-items-center decoration-transparent"><h1 className="text-3xl font-thin uppercase italic font-serif">EventPlanner</h1></Link>
         <Form className="flex" method="post" onSubmit={handleSubmit}>
             <input className="px-3 text-slate-700 rounded-md" type="search" name="search" placeholder="Search" />
             <input className="px-3 text-slate-700 mx-2 rounded-md" type="datetime-local" name="date" />
@@ -134,12 +137,29 @@ function Header({ user }) {
         <section className="flex justify-center items-center flex-row text-right" >
             {
                 user?.user ? <>
-                    <Link className="text-right p-3" to="/my-events">My Events</Link>
-                    <Link className="text-right p-3" to="/create">Create Event</Link>
-                    <Link className="text-right p-3" to={"/profile/" + user?.user?._id}>{user?.user?.name}</Link>
-                    <Form className="inline" method="post">
-                        <button className="text-right p-4" type="submit">Logout</button>
-                    </Form>
+                    <Link className="flex items-center justify-center bg-slate-400 rounded-full w-10 h-10 text-4xl p-3 mr-4" to="/create">+</Link>
+                    <section className="relative">
+                      <button className="flex items-center text-right p-3" onClick={() => {
+                        setOpenMenu(!openMenu)
+                      }}>
+                        {
+                            user?.user?.image ?
+                                <img className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
+                                <img className="profile-picture" src="https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg" alt={user?.user?.name} />
+                        }  
+                        {user?.user?.name}
+                      </button>
+                      {
+                          openMenu && 
+                          <section className="w-max z-10 flex flex-col absolute top-20 right-0 bg-slate-800 text-slate-50 rounded-md overflow-hidden">
+                              <Link onClick={() => setOpenMenu(!openMenu) } className="w-full text-right p-3 hover:bg-slate-400" to="/my-events">My Events</Link>
+                              <Link className="w-full p-3 hover:bg-slate-400" onClick={() => setOpenMenu(!openMenu) } to={"/profile/" + user?.user?._id}>Profile</Link>
+                              <Form className="inline" method="post">
+                                <button className="w-full text-right p-4 hover:bg-slate-400" type="submit">Logout</button>
+                              </Form>
+                          </section>
+                      }
+                    </section>
                 </>
                 :
                 <>
