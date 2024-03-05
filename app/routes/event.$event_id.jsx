@@ -28,7 +28,14 @@ export async function loader({params, request}){
         return comment;
     });
 
+    const attendancies = event.participant.map(async (comment) => {
+        const user = await findUser(comment._id);
+        comment.user = user;
+        return comment;
+    });
+
     event.comment = await Promise.all(newCommentArray);
+    event.participant = await Promise.all(attendancies);
     
     return { event, user };
 }
@@ -118,8 +125,9 @@ export default function Event(){
                         <ul className="list-inside">
                             {
                                 event?.participant.map((participant) => {
+                                    console.log(participant);
                                     return (
-                                        <li className="block py-3 pl-5" key={participant._id}>{user && participant?._id === user?._id ? "You" : participant.name}</li>
+                                        <li className="block py-3 pl-5" key={participant._id}>{(user && participant?._id === user?._id) ?  (participant.user.image) ? <img alt="" src={participant?.user?.image} /> + "You" : "You" : (participant.user.image) ? <img alt="" src={participant?.user?.image} /> + participant.user.name : null + participant.user.name}</li>
                                     );
                                 })
                             }

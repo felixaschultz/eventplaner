@@ -52,7 +52,15 @@ const entrySchema = new Schema(
         _id: {
           type: Schema.Types.ObjectId,
           ref: "Account",
-        }
+        },
+        user: {
+          name: String,
+          mail: String,
+          _id: {
+            type: Schema.Types.ObjectId,
+            ref: "Account",
+          }
+        },
       }
     ],
     public: {
