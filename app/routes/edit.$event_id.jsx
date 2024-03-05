@@ -16,6 +16,9 @@ export async function loader({request, params}){
 export default function Event(){
     const {event} = useLoaderData();
     const fetcher = useFetcher();
+
+    console.log(event.date);
+
     const defaultDate = new Date(event.date).toISOString().slice(0, 16);
 
     return (
