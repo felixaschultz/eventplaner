@@ -125,7 +125,6 @@ export default function Event(){
                         <ul className="list-inside">
                             {
                                 event?.participant.map((participant) => {
-                                    console.log(participant);
                                     return (
                                         <li className="block py-3 pl-5" key={participant._id}>{
                                             (user && participant?._id === user?._id) ?  
