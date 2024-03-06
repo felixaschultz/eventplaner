@@ -4,7 +4,6 @@ import { mongoose } from "mongoose";
 import { Form } from "@remix-run/react";
 import { uploadImage } from "~/services/uploadImage.server";
 import { useState } from "react";
-import { doc } from "prettier";
 
 export async function loader({request, params}){
     await authenticator.isAuthenticated(request, {
@@ -17,6 +16,14 @@ export async function loader({request, params}){
     return {event: event};
 }
 
+export const meta = ({data}) => {
+    return [
+        {
+            title: `Edit Event: ${data.event.title} | Event Planer`
+        }
+    ];
+};
+
 export default function Event(){
     const {event} = useLoaderData();
     const [image, setImage] = useState(event?.image ? event?.image : null);
@@ -24,9 +31,8 @@ export default function Event(){
 
     
     const defaultDate = new Date(event.date).toISOString().slice(0, 16);
-    const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-    const imageRegex = new RegExp(`.(${validImageExtensions.join('|')})$`, 'i');
-    console.log(image, event.image === image);
+    /* const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    const imageRegex = new RegExp(`.(${validImageExtensions.join('|')})$`, 'i'); */
 
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
