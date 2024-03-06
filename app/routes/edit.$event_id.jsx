@@ -123,8 +123,7 @@ export const action = async ({request, params}) => {
         if (image && image._name) {
             const newImage = await uploadImage(image);
             if(newImage){
-                console.log("Image to upload", newImage);
-                /* data.image = newImage; */
+                data.image = newImage;
             }
         }
 
