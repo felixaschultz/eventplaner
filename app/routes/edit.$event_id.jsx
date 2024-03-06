@@ -22,7 +22,11 @@ export default function Event(){
     const [image, setImage] = useState(event?.image ? event?.image : null);
     const fetcher = useFetcher();
 
+    
     const defaultDate = new Date(event.date).toISOString().slice(0, 16);
+    const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    const imageRegex = new RegExp(`.(${validImageExtensions.join('|')})$`, 'i');
+    console.log(image, event.image === image);
 
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
@@ -41,7 +45,7 @@ export default function Event(){
                         </section>
                         <section>
                             <label htmlFor="description">Description</label>
-                            <textarea className="w-full block p-2 text-slate-500" id="description" name="description" defaultValue={event.description} />
+                            <textarea className="w-full block p-2 text-slate-500 resize-none" id="description" name="description" defaultValue={event.description} />
                         </section>
                         <section>
                             <label htmlFor="place">Place</label>
@@ -58,6 +62,10 @@ export default function Event(){
                                         type="file"
                                         onChange={handleImageChange}
                                     />
+                                    {
+                                        (event.image === image) ?
+                                            <input type="hidden" value={event.image == image ? image : null} name="oldImage" /> : null
+                                    }
                                 </section> :  
                             <>
                             <input
@@ -69,7 +77,7 @@ export default function Event(){
                                 />
                             </>}
                         </section>
-                        <button  className="bg-slate-600 p-3 px-11 mt-3" type="submit">Update Event</button>
+                        <button  className="bg-slate-600 p-3 px-11 mt-3 col-span-2" type="submit">Update Event</button>
                     </fieldset>
                 </fetcher.Form>
             </section>
@@ -123,9 +131,13 @@ export const action = async ({request, params}) => {
         });
     }else{
 
-        const { image } = Object.fromEntries(formData);
+        const { image, oldImage } = Object.fromEntries(formData);
 
-        if (image && image._name) {
+        if(oldImage){
+            data.image = oldImage;
+        }
+
+        if (image instanceof File && oldImage == undefined) {
             const newImage = await uploadImage(image);
             if(newImage){
                 data.image = newImage;
