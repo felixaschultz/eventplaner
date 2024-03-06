@@ -18,21 +18,32 @@ export default function Create(){
     const fetcher = useFetcher();
     const actionData = useActionData();
     const [image, setImage] = useState(null);
+
+    console.log(image);
+
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
             <fetcher.Form className="w-1/2 m-auto" method="post">
                 <h1 className="text-3xl font-bold">Create Event</h1>
                 <fieldset disabled={(fetcher.state === "submitting") ? true : false}>
                     {
-                        (image) ? (
+                        (image != null) ? (
                             <section>
                                 <img src={URL.createObjectURL(image)} alt="event" />
-                                <input required type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
+                                <input className="hidden" required type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
                             </section>
                         ) : (
                             <section>
-                                <label htmlFor="image">Image</label>
-                                <input required type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
+                                <div onClick={handleUpload} className="w-full border-dotted border-red-50 border-2 h-48">
+                                    <p className="flex justify-center items-center h-full cursor-pointer">Upload Image</p>
+                                </div>
+                                <input
+                                    id="image"
+                                    className="hidden w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    name="image"
+                                    type="file"
+                                    onChange={handleImageChange}
+                                />
                             </section>
                         )
                     }
@@ -60,6 +71,14 @@ export default function Create(){
             </fetcher.Form>
         </div>
     );
+
+    function handleUpload(){
+        document.getElementById("image").click();
+    }
+
+    function handleImageChange(e){
+        setImage(e.target.files[0]);
+    }
 }
 
 export const action = async ({ request }) => {

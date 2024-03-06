@@ -34,6 +34,7 @@ export default function Event(){
     /* const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     const imageRegex = new RegExp(`.(${validImageExtensions.join('|')})$`, 'i'); */
 
+    
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
             <section className="w-1/2 m-auto">

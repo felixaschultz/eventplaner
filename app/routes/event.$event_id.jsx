@@ -57,8 +57,6 @@ export default function Event(){
         return participant._id === user?._id;
     })
 
-    console.log(event);
-
     useEffect(() => {
         if(comment.current && fetcher.state === "submitting"){
             comment.current.value = "";
