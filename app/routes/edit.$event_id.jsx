@@ -153,7 +153,7 @@ export const action = async ({request, params}) => {
             return new Response(null, {
                 status: 302,
                 headers: {
-                    location: "/my-events",
+                    location: "/event/" + params.event_id,
                 },
             });
         }
