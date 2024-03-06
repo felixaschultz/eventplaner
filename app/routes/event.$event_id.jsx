@@ -68,12 +68,12 @@ export default function Event(){
     return (
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
             <section>
+                {
+                    event?.image && (
+                        <img className="w-full h-72 mb-3 object-cover" src={event?.image} alt={event?.title} />
+                    )
+                }
                 <div className="flex justify-between place-content-end mb-3">
-                    {
-                        event?.image && (
-                            <img className="w-1/2 h-1/2" src={event?.image} alt={event?.title} />
-                        )
-                    }
                     <h1 className="text-3xl font-bold">{event?.title}</h1>
                     {
                         event?.useriD === user?._id && (

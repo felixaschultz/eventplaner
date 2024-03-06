@@ -4,6 +4,7 @@ import { mongoose } from "mongoose";
 import { Form } from "@remix-run/react";
 import { uploadImage } from "~/services/uploadImage.server";
 import { useState } from "react";
+import { doc } from "prettier";
 
 export async function loader({request, params}){
     await authenticator.isAuthenticated(request, {
@@ -32,26 +33,8 @@ export default function Event(){
                     <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
                 </Form>
                 <fetcher.Form method="post" encType="multipart/form-data">
-                    {(event?.image) ? <img src={image} alt="event" /> : null}
+                    {(event?.image) ? <img onClick={openImageDialog} className="w-full h-72 mb-3 object-cover" src={image} alt="event" /> : null}
                     <fieldset className="grid grid-cols-2 gap-4" disabled={fetcher.state === "submitting" ? true : false}>
-                        {(event.image) ?
-                            <section>
-                                <input
-                                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    name="image"
-                                    type="file"
-                                    onChange={handleImageChange}
-                                />
-                            </section>
-                        : 
-                        <>
-                           <input
-                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                name="image"
-                                type="file"
-                                onChange={handleImageChange}
-                            />
-                        </>}
                         <section>
                             <label htmlFor="title">Title</label>
                             <input className="w-full block p-2 text-slate-500" type="text" id="title" name="title" defaultValue={event.title} />
@@ -67,6 +50,24 @@ export default function Event(){
                         <section>
                             <label htmlFor="date">Date</label>
                             <input className="w-full block p-2 text-slate-500" type="datetime-local" id="date" name="date" defaultValue={defaultDate} />
+                            {(event.image) ?
+                                <section className="">
+                                    <input id="image"
+                                        className="hidden w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        name="image"
+                                        type="file"
+                                        onChange={handleImageChange}
+                                    />
+                                </section> :  
+                            <>
+                            <input
+                                    id="image"
+                                    className="hidden w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    name="image"
+                                    type="file"
+                                    onChange={handleImageChange}
+                                />
+                            </>}
                         </section>
                         <button  className="bg-slate-600 p-3 px-11 mt-3" type="submit">Update Event</button>
                     </fieldset>
@@ -82,6 +83,10 @@ export default function Event(){
             setImage(e.target.result);
         };
         reader.readAsDataURL(file);
+    }
+
+    function openImageDialog(){
+        document.querySelector("#image").click();
     }
 }
 
