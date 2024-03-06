@@ -135,7 +135,7 @@ function Header({ user }) {
                 </section>
             }
         </Form>
-        <section className="flex justify-center items-center flex-row text-right" >
+        <section className="flex justify-end items-center flex-row text-right" >
             {
                 user?.user ? <>
                     <Link className="flex items-center justify-center bg-slate-400 rounded-full w-10 h-10 text-4xl p-3 mr-4" to="/create">+</Link>
