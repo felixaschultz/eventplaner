@@ -24,10 +24,10 @@ export const loader = async ({request, params}) => {
         });
     }
 
-    return json({profile});
+    return json({profile, user});
 }
 export default function Profile(){
-    const {profile} = useLoaderData();
+    const {profile, user} = useLoaderData();
     const fetcher = useFetcher();
     const [image, setImage] = useState(profile?.image ? profile?.image : "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg")
 
@@ -44,15 +44,21 @@ export default function Profile(){
         <div className="w-1/2 m-auto p-2">
             <img className="w-1/2 h-1/2" src={image} alt={profile.name} /> 
             <h1 className="text-3xl">{profile.name}</h1>
-            <fetcher.Form method="post" encType="multipart/form-data">
-                <input
-                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    name="image"
-                    type="file"
-                    onChange={handleImageChange}
-                />
-                <button className="bg-slate-600 p-3 px-11 mt-3" type="submit">Update Image</button>
-            </fetcher.Form>
+            {
+                (user?._id === profile._id) ? (
+                    <fetcher.Form method="post" encType="multipart/form-data">
+                        <fieldset disabled={fetcher.submitting} className="disabled:opacity-20">
+                            <input
+                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                name="image"
+                                type="file"
+                                onChange={handleImageChange}
+                            />
+                            <button className="bg-slate-600 p-3 px-11 mt-3" type="submit">Update Image</button>
+                        </fieldset>
+                    </fetcher.Form>
+                ) : null
+            }
         </div>
     );
 }
