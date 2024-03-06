@@ -74,6 +74,7 @@ export default function Event(){
                     }
                 </div>
                 <p>{event?.description}</p>
+                {event.public === true && (
                 <article className="mt-10 border-t-2 border-t-slate-400">
                     <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
                     {
@@ -100,6 +101,7 @@ export default function Event(){
                         }) : <p>No comments yet</p>
                     }
                 </article>
+                )}
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
