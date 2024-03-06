@@ -74,10 +74,10 @@ export default function Event(){
                     }
                 </div>
                 <p>{event?.description}</p>
-                {event.public === true && (
                 <article className="mt-10 border-t-2 border-t-slate-400">
-                    <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
-                    {
+                {event.public === true && (
+                    <>
+                        <h2 className="text-xl font-bold my-3">{event?.comment?.length} Comments</h2>
                         <fetcher.Form className="mb-15" method="post">
                             <fieldset className="disabled:opacity-50 disabled:cursor-not-allowed" disabled={fetcher.state === "submitting" || !user ? true : false}>
                                 <textarea ref={comment} className="w-full bg-slate-400 block p-2 placeholder:text-slate-600 text-slate-700 rounded-md disabled:cursor-not-allowed" id="comment" name="comment" placeholder="Write a comment" />
@@ -86,7 +86,8 @@ export default function Event(){
                                 </section>
                             </fieldset>
                         </fetcher.Form>
-                    }
+                    </>
+                )}
                     {
                         (event?.comment && event?.comment.length > 0) ? event?.comment.sort((a,b) => {
                             return new Date(b.date) - new Date(a.date);
@@ -101,7 +102,6 @@ export default function Event(){
                         }) : <p>No comments yet</p>
                     }
                 </article>
-                )}
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
