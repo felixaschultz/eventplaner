@@ -13,6 +13,9 @@ export default function Card({entry, user, children}) {
         <section className="card p-8 rounded-md text-slate-50 bg-slate-900">
             <section>
                 <p>{user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? "Public" : "Private")}</p>
+                {entry.image && (
+                    <img src={entry.image} alt={entry.title} className="w-full h-72 object-cover mb-2" />
+                )}
                 <h1 className="text-1xl font-bold">{entry.title}</h1>
                 <p>{entry.description}</p>
                 <time dateTime={entry.date}>{formattedDate} - { time }</time>
