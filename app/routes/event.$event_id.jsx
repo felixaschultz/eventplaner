@@ -73,11 +73,11 @@ export default function Event(){
                         <img className="w-full h-72 mb-3 object-cover" src={event?.image} alt={event?.title} />
                     )
                 }
-                <div className="flex justify-between place-content-end mb-3">
-                    <h1 className="text-3xl font-bold">{event?.title}</h1>
+                <div className="flex justify-between items-center mb-3">
+                    <h1 className="text-2xl font-bold">{event?.title}</h1>
                     {
                         event?.useriD === user?._id && (
-                            <Link className="w-max bg-slate-500 block rounded-md text-slate-200 px-6 py-1" to={"/edit/" + event._id}>Edit event</Link>
+                            <Link className="w-max bg-slate-500 block rounded-md text-slate-200 px-6 py-1" to={"/edit/" + event._id}>Edit</Link>
                         )
                     }
                 </div>
@@ -113,7 +113,7 @@ export default function Event(){
             </section>
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
-                <h3>Place: {event?.place}</h3>
+                <h3 className="text-xl mb-2">Place: {event?.place}</h3>
                 <Map place={event?.place} />
                 <section className="mt-5">
                     <h3 className="text-xl font-bold">Attendancies</h3>
