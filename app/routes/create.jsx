@@ -27,31 +27,31 @@ export default function Create(){
                         (image) ? (
                             <section>
                                 <img src={URL.createObjectURL(image)} alt="event" />
-                                <input type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
+                                <input required type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
                             </section>
                         ) : (
                             <section>
                                 <label htmlFor="image">Image</label>
-                                <input type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
+                                <input required type="file" id="image" name="image" onChange={(e) => setImage(e.target.files[0])} />
                             </section>
                         )
                     }
                     <article className="grid grid-cols-2 gap-4">
                         <section>
                             <label htmlFor="title">Title</label>
-                            <input className="block w-full p-2 text-slate-500" type="text" id="title" name="title" />
+                            <input required className="block w-full p-2 text-slate-500" type="text" id="title" name="title" />
                         </section>
                         <section>
                             <label htmlFor="description">Description</label>
-                            <textarea className="block w-full p-2 text-slate-500" id="description" name="description" />
+                            <textarea required className="block w-full p-2 text-slate-500" id="description" name="description" />
                         </section>
                         <section>
                             <label htmlFor="place">Place</label>
-                            <input className="block w-full p-2 text-slate-500" type="text" id="place" name="place" />
+                            <input required className="block w-full p-2 text-slate-500" type="text" id="place" name="place" />
                         </section>
                         <section>
                             <label htmlFor="date">Date</label>
-                            <input className="block w-full p-2 text-slate-500" type="datetime-local" id="date" name="date" />
+                            <input required className="block w-full p-2 text-slate-500" type="datetime-local" id="date" name="date" />
                         </section>
                     </article>
                 </fieldset>
