@@ -30,7 +30,6 @@ export async function loader({params, request}){
 
     const attendancies = event.participant.map(async (comment) => {
         const user = await findUser(comment._id);
-        console.log(user);
         comment.user = user;
         return comment;
     });
@@ -58,6 +57,8 @@ export default function Event(){
         return participant._id === user?._id;
     })
 
+    console.log(event);
+
     useEffect(() => {
         if(comment.current && fetcher.state === "submitting"){
             comment.current.value = "";
@@ -68,6 +69,11 @@ export default function Event(){
         <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
             <section>
                 <div className="flex justify-between place-content-end mb-3">
+                    {
+                        event?.image && (
+                            <img className="w-1/2 h-1/2" src={event?.image} alt={event?.title} />
+                        )
+                    }
                     <h1 className="text-3xl font-bold">{event?.title}</h1>
                     {
                         event?.useriD === user?._id && (
