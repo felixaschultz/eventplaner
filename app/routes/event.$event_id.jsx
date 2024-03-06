@@ -2,6 +2,7 @@ import { Form, useLoaderData, useFetcher, Link } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "../services/auth.server";
 import { useEffect, useRef } from "react";
+import Map from "../components/Map";
 
 async function findUser(userId) {
     const user = await mongoose.models.Account.findOne({_id: userId});
@@ -106,6 +107,7 @@ export default function Event(){
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
                 <h3>Place: {event?.place}</h3>
+                <Map place={event?.place} />
                 <section className="mt-5">
                     <h3 className="text-xl font-bold">Attendancies</h3>
                     <p>Total: {event?.participant.length == undefined ? "0" : event?.participant.length}</p>
