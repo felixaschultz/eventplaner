@@ -36,7 +36,6 @@ export async function action({request}){
     const rawBody = await request.text();
     const formData = new URLSearchParams(rawBody);
     const data = Object.fromEntries(formData);
-    const formData2 = await request.formData();
 
 
     const NewUser = await mongoose.models.Account.create(data);
