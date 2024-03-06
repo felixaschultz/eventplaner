@@ -80,6 +80,7 @@ export async function action({request}){
 
 export function ErrorBoundary() {
   let error = useRouteError();
+  const user = useLoaderData();
   return (
     <html lang="en" className="h-full">
       <head>
@@ -88,7 +89,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <Header />
+        <Header user={user} />
         <section className="flex h-full flex-col items-center justify-center">
           <p className="text-3xl">Whoops!</p>
           {isRouteErrorResponse(error) ? (
@@ -111,8 +112,6 @@ export function ErrorBoundary() {
 function Header({ user }) {
   let events = useActionData();
   const [openMenu, setOpenMenu] = useState(false);
-
-  console.log(user);
 
   return (
     <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">

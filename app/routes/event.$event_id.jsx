@@ -30,6 +30,7 @@ export async function loader({params, request}){
 
     const attendancies = event.participant.map(async (comment) => {
         const user = await findUser(comment._id);
+        console.log(user);
         comment.user = user;
         return comment;
     });
