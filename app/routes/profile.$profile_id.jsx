@@ -30,8 +30,6 @@ export default function Profile(){
     const {profile} = useLoaderData();
     const fetcher = useFetcher();
     const [image, setImage] = useState(profile?.image ? profile?.image : "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg")
-    
-    console.log(profile);
 
     function handleImageChange(event) {
         const file = event.target.files[0];
