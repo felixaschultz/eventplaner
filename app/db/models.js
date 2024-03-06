@@ -13,6 +13,7 @@ const entrySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Account",
     },
+    image: String,
     title: {
       type: String,
       required: true,
