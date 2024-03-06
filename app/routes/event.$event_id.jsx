@@ -14,9 +14,6 @@ export async function loader({params, request}){
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
 
-    console.log(event);
-
-
     if(!event || event.public === false && event.useriD != user?._id){
         throw new Response(null, {
             status: 404,
@@ -42,10 +39,10 @@ export async function loader({params, request}){
     return { event, user };
 }
 
-export const meta = () => {
+export const meta = ({data}) => {
     return [
         {
-            title: "Event | Event Planer"
+            title: data.event.title + " | Event Planer"
         }
     ]
 };
