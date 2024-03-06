@@ -111,6 +111,9 @@ export function ErrorBoundary() {
 function Header({ user }) {
   let events = useActionData();
   const [openMenu, setOpenMenu] = useState(false);
+
+  console.log(user);
+
   return (
     <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
         <Link to="/" className="flex place-items-center decoration-transparent"><h1 className="text-3xl font-thin uppercase italic font-serif">EventPlanner</h1></Link>
