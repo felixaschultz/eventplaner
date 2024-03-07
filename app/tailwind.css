@@ -117,7 +117,7 @@ body{
 .chatContainer-grid{
     display: grid;
     grid-template-rows: auto 1fr auto;
-    height: 100vh;
+    height: calc(100vh - 123px);
 }
 
 .messages-container{

@@ -38,8 +38,6 @@ export const loader = async ({ params, request }) => {
         return message;
     });
 
-    console.log(chat);
-
     chat?.forEach((message) => {
         /* Find user */
         (message.message.match(/@(\w+)/g) || []).forEach((match) => {
