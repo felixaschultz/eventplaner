@@ -14,6 +14,7 @@ export const loader = async ({request, params}) => {
         
         });
     }
+
     const userId = new mongoose.Types.ObjectId(params.profile_id);
     const profile = await mongoose.models.Account.findOne({_id: userId});
 
