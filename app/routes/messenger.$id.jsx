@@ -90,13 +90,13 @@ export default function Chat() {
       }, [location.pathname, revalidate]);
 
     return (
-        <div className="chatContainer-grid" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+        <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
             <MessageContainer messages={chat} user={user} ref={chatRef} />
             <footer>
                 <fetcher.Form method="post">
                     <fieldset disabled={fetcher.state === "submitting" ? true : false}>
                         <section className="chatContainer">
-                            <input className="chat-input" ref={textRef} type="text" name="message" placeholder="Type a message" />
+                            <input className="chat-input bg-slate-900 outline-none text-slate-300" ref={textRef} type="text" name="message" placeholder="Type a message" />
                         </section>
                     </fieldset>
                 </fetcher.Form>
