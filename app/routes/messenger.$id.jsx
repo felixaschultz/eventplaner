@@ -24,7 +24,11 @@ export const loader = async ({ params, request }) => {
 
     const id = params.id;
 
-    let [chat] = await mongoose.models.Messenger.find({ participants: [user, params.id] }).sort({ date: 1 });
+    let [chat] = await mongoose.models.Messenger.find({
+        $or: [
+            { participants: user },
+            { participants: user }
+      ]}).sort({ date: 1 });
 
     if(chat === undefined){
         return new Response(null, {
@@ -100,7 +104,7 @@ export default function Chat() {
                     <fieldset disabled={fetcher.state === "submitting" ? true : false}>
                         <section className="chatContainer">
                             <input className="chat-input bg-slate-900 outline-none text-slate-300" ref={textRef} type="text" name="message" placeholder="Type a message" />
-                            <button className="chat-button bg-slate-600 p-2 px-3 rounded-lg text-right" type="submit">Send</button>
+                            <button className="chat-button bg-slate-600 p-2 px-3 rounded-lg text-right text-slate-200" type="submit">Send</button>
                         </section>
                     </fieldset>
                 </fetcher.Form>
@@ -122,13 +126,17 @@ export const action = async ({ params, request }) => {
         return redirect("/messenger/" + params.id);
     }
 
-    const currentChat = await mongoose.models.Messenger.findOne({ participants: [user, params.id] });
+    const currentChat = await mongoose.models.Messenger.findOne({
+        $or: [
+            { participants: user },
+            { participants: params.id }
+      ]});
 
     if(currentChat){
         currentChat.messages.push(
             {
-                sender: currentChat.messages[0].sender,
-                receiver: currentChat.messages[0].receiver,
+                sender: user,
+                receiver: params.id,
                 message: message,
             }
         );
