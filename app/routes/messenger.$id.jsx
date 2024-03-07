@@ -39,8 +39,14 @@ export const loader = async ({ params, request }) => {
 
     chat = chat.messages?.map((message) => {
         message.date = moment(message.date).format("YYYY-MM-DD HH:mm:ss");
+        /* if(message.timestamp >= moment().subtract(5, "minutes").unix()){
+            chat.unread = true;
+
+        } */
         return message;
     });
+
+    
 
     chat?.forEach((message) => {
         /* Find user */

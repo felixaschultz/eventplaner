@@ -82,7 +82,8 @@ const messengerSchema = new Schema({
     receiver: { type: Schema.Types.ObjectId, ref: 'User' },
     message: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
-  }]
+  }],
+  unread: { type: Boolean, default: true }
 });
 
 const userSchema = new Schema(
