@@ -22,7 +22,7 @@ export async function loader({request}) {
 }
 
 export default function Login() {
-    const loaderData = useLoaderData();
+  const loaderData = useLoaderData();
   return (
     <div className="grid place-content-center p-8 text-slate-50 bg-slate-900 min-h-full">
         <h1 className="text-3xl font-bold">Login</h1>
