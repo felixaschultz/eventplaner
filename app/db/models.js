@@ -9,15 +9,61 @@ const entrySchema = new Schema(
       type: Date,
       required: true,
     },
-    type: {
+    useriD: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
+    image: String,
+    title: {
       type: String,
-      enum: ["work", "learning", "interesting-thing"],
       required: true,
     },
-    text: {
+    description: {
       type: String,
       required: true,
     },
+    place: {
+      type: String,
+      required: true,
+    },
+    comment: [
+      {
+        useriD: {
+          type: Schema.Types.ObjectId,
+          ref: "Account",
+        },
+        comment: String,
+        user: {
+          name: String,
+          mail: String,
+          _id: {
+            type: Schema.Types.ObjectId,
+            ref: "Account",
+          }
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      }
+    ],
+    participant: [
+      {
+        name: String,
+        _id: {
+          type: Schema.Types.ObjectId,
+          ref: "Account",
+        },
+        user: {
+          name: String,
+          mail: String,
+          _id: {
+            type: Schema.Types.ObjectId,
+            ref: "Account",
+          }
+        },
+      }
+    ],
     public: {
       type: Boolean,
       required: true,
@@ -29,6 +75,16 @@ const entrySchema = new Schema(
   { timestamps: true },
 );
 
+const messengerSchema = new Schema({
+  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  messages: [{
+    sender: { type: Schema.Types.ObjectId, ref: 'User' },
+    receiver: { type: Schema.Types.ObjectId, ref: 'User' },
+    message: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now }
+  }]
+});
+
 const userSchema = new Schema(
   {
     image: String,
@@ -39,7 +95,6 @@ const userSchema = new Schema(
     },
     name: String,
     title: String,
-    educations: [String],
     password: {
       type: String,
       required: true, // Ensure user passwords are required
@@ -75,5 +130,10 @@ export const models = [
     name: "Account",
     schema: userSchema,
     collection: "accounts",
-  }
+  },
+  {
+    name: "Messenger",
+    schema: messengerSchema,
+    collection: "messages",
+  },
 ];
