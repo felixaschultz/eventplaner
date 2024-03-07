@@ -11,7 +11,7 @@ export const meta = () => {
         }
     ];
 }
-export async function loader({ request }) {
+export async function loader({ request, params }) {
     const user = await authenticator.isAuthenticated(request, {
         failureRedirect: "/login"
     });
