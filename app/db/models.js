@@ -75,6 +75,21 @@ const entrySchema = new Schema(
   { timestamps: true },
 );
 
+const messengerSchema = new Schema(
+  {
+    useriD: {
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
+    message: String,
+    date: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { timestamps: true },
+);
+
 const userSchema = new Schema(
   {
     image: String,
@@ -120,5 +135,10 @@ export const models = [
     name: "Account",
     schema: userSchema,
     collection: "accounts",
-  }
+  },
+  {
+    name: "Messenger",
+    schema: messengerSchema,
+    collection: "messages",
+  },
 ];
