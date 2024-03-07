@@ -99,7 +99,8 @@ body{
     padding: 10px;
     margin: 10px;
     display: block;
-    max-width: max-content;
+    width: max-content;
+    max-width: calc(100% - 588px - 5px);
     word-wrap: break-word;
 }
 
