@@ -75,20 +75,15 @@ const entrySchema = new Schema(
   { timestamps: true },
 );
 
-const messengerSchema = new Schema(
-  {
-    useriD: {
-      type: Schema.Types.ObjectId,
-      ref: "Account",
-    },
-    message: String,
-    date: {
-      type: Date,
-      default: Date.now,
-    },
-  },
-  { timestamps: true },
-);
+const messengerSchema = new Schema({
+  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  messages: [{
+    sender: { type: Schema.Types.ObjectId, ref: 'User' },
+    receiver: { type: Schema.Types.ObjectId, ref: 'User' },
+    message: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now }
+  }]
+});
 
 const userSchema = new Schema(
   {
