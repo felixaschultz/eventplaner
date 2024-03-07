@@ -33,12 +33,12 @@ export const loader = async ({ params, request }) => {
         });
     }
 
-    console.log(chat.messages);
-
     chat = chat.messages?.map((message) => {
         message.date = moment(message.date).format("YYYY-MM-DD HH:mm:ss");
         return message;
     });
+
+    console.log(chat);
 
     chat?.forEach((message) => {
         /* Find user */
@@ -56,11 +56,7 @@ export const loader = async ({ params, request }) => {
         message.you = message.user === user;
     });
 
-    const chatUser = chat?.find(element => element.user !== user).user;
-
-    console.log(chat);
-
-    return { chat,  chatUser };
+    return { chat,  user };
 }
 
 export default function Chat() {
@@ -91,10 +87,7 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <header className="chat-header">
-                <h1>{ user }</h1>
-            </header>
-            <MessageContainer messages={chat} ref={chatRef} />
+            <MessageContainer messages={chat} user={user} ref={chatRef} />
             <footer>
                 <fetcher.Form method="post">
                     <fieldset disabled={fetcher.state === "submitting" ? true : false}>
@@ -126,12 +119,22 @@ export const action = async ({ params, request }) => {
     if(currentChat){
         currentChat.messages.push(
             {
-                sender: currentChat.sender,
-                receiver: currentChat.receiver,
+                sender: currentChat.messages[0].sender,
+                receiver: currentChat.messages[0].receiver,
                 message: message,
             }
         );
-        return await currentChat.save();
+
+        try{
+            await currentChat.save();
+            return currentChat
+        } catch (error) {
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+                text: "Internal Server Error",
+            });
+        }
     }else{
         return await mongoose.models.Messenger.create(
             {
