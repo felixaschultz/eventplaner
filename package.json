@@ -1,5 +1,5 @@
 {
-  "name": "remix-mongoose-stack",
+  "name": "event-planer",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -20,6 +20,7 @@
     "isbot": "^4.4.0",
     "moment": "^2.30.1",
     "mongoose": "^8.1.3",
+    "osm": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remix-auth": "^3.6.0",
