@@ -1,4 +1,4 @@
-import { useLoaderData, useFetcher, Form, redirect, useNavigate } from "@remix-run/react";
+import { useLoaderData, useFetcher, Form, redirect, useNavigate, useLocation } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 import { useRevalidator } from "@remix-run/react";
 import MessageContainer from "~/components/MessengerContainer";
@@ -61,6 +61,7 @@ export const loader = async ({ params, request }) => {
 
 export default function Chat() {
     const {chat, user} = useLoaderData();
+    const location = useLocation();
 
     const fetcher = useFetcher();
     const revalidate = useRevalidator();
@@ -79,11 +80,14 @@ export default function Chat() {
 
     }, [fetcher.state]);
 
-    useEffect(() => {
-        setInterval(() => {
-            /* revalidate.revalidate(); */
-        }, 1000);
-    }, []);
+    /* useEffect(() => {
+        console.log(location);
+        if(location.pathname.indexOf("/messenger") > -1){
+            setInterval(() => {
+                revalidate.revalidate();
+            }, 1000);
+        }
+    }, [location, location.pathname, revalidate]); */
 
     return (
         <div className="chatContainer-grid" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
