@@ -80,15 +80,6 @@ export default function Chat() {
 
     }, [fetcher.state]);
 
-    /* useEffect(() => {
-        console.log(location);
-        if(location.pathname.indexOf("/messenger") > -1){
-            setInterval(() => {
-                revalidate.revalidate();
-            }, 1000);
-        }
-    }, [location, location.pathname, revalidate]); */
-
     useEffect(() => {
         if (location.pathname.indexOf('/messenger') > -1) {
           const intervalId = setInterval(async () => {
