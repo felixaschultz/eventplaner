@@ -97,6 +97,7 @@ export default function Chat() {
                     <fieldset disabled={fetcher.state === "submitting" ? true : false}>
                         <section className="chatContainer">
                             <input className="chat-input bg-slate-900 outline-none text-slate-300" ref={textRef} type="text" name="message" placeholder="Type a message" />
+                            <button className="chat-button bg-slate-600 p-2 px-3 rounded-lg text-right" type="submit">Send</button>
                         </section>
                     </fieldset>
                 </fetcher.Form>
