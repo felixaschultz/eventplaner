@@ -24,22 +24,23 @@ export const loader = async ({ params, request }) => {
 
     const id = params.id;
 
-    let [chat] = await mongoose.models.Messenger.find({ chat_id: id }).sort({ date: 1 });
+    let [chat] = await mongoose.models.Messenger.find({ participants: [user, params.id] }).sort({ date: 1 });
 
     if(chat === undefined){
-        console.log("Chat not found");
         return new Response(null, {
             status: 404,
             text: "Chat not found",
         });
     }
 
-    chat = chat.map((message) => {
+    console.log(chat.messages);
+
+    chat = chat.messages?.map((message) => {
         message.date = moment(message.date).format("YYYY-MM-DD HH:mm:ss");
         return message;
     });
 
-    chat.forEach((message) => {
+    chat?.forEach((message) => {
         /* Find user */
         (message.message.match(/@(\w+)/g) || []).forEach((match) => {
             const username = match.slice(1);
@@ -55,7 +56,9 @@ export const loader = async ({ params, request }) => {
         message.you = message.user === user;
     });
 
-    const chatUser = chat.find(element => element.user !== user).user;
+    const chatUser = chat?.find(element => element.user !== user).user;
+
+    console.log(chat);
 
     return { chat,  chatUser };
 }
@@ -114,18 +117,34 @@ export const action = async ({ params, request }) => {
 
     const data = await request.formData();
     const message = data.get("message");
-    const username = user;
     if (!message) {
         return redirect("/messenger/" + params.id);
     }
-    
-    const newMessage = await mongoose.models.Messenger.create(
-        params.id,
-        username,
-        message
-    );
 
-    if(newMessage){
-        return  {chat_id: params.id, user: username, message: message, date: new Date() };
+    const currentChat = await mongoose.models.Messenger.findOne({ participants: [user, params.id] });
+
+    if(currentChat){
+        currentChat.messages.push(
+            {
+                sender: currentChat.sender,
+                receiver: currentChat.receiver,
+                message: message,
+            }
+        );
+        return await currentChat.save();
+    }else{
+        return await mongoose.models.Messenger.create(
+            {
+                chatId: params.id,
+                participants: [user, params.id],
+                messages: [
+                    {
+                        sender: user,
+                        receiver: params.id,
+                        message: message,
+                    }
+                ]
+            }
+        );
     }
 }
