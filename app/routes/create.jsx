@@ -19,8 +19,6 @@ export default function Create(){
     const actionData = useActionData();
     const [image, setImage] = useState(null);
 
-    console.log(image);
-
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
             <fetcher.Form className="w-1/2 m-auto" method="post" encType="multipart/form-data">
