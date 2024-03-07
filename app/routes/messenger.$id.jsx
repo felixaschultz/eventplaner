@@ -1,4 +1,4 @@
-import { useLoaderData, useFetcher, Form, redirect, useNavigate, useLocation } from "@remix-run/react";
+import { useLoaderData, useFetcher, redirect, useLocation } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 import { useRevalidator } from "@remix-run/react";
 import MessageContainer from "~/components/MessengerContainer";
@@ -89,6 +89,17 @@ export default function Chat() {
         }
     }, [location, location.pathname, revalidate]); */
 
+    useEffect(() => {
+        if (location.pathname.indexOf('/messenger') > -1) {
+          const intervalId = setInterval(async () => {
+            revalidate.revalidate();
+          }, 1000);
+    
+          // Clear the interval when the component is unmounted or the path changes
+          return () => clearInterval(intervalId);
+        }
+      }, [location.pathname, revalidate]);
+
     return (
         <div className="chatContainer-grid" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
             <MessageContainer messages={chat} user={user} ref={chatRef} />
@@ -131,7 +142,7 @@ export const action = async ({ params, request }) => {
 
         try{
             await currentChat.save();
-            return currentChat
+            return true;
         } catch (error) {
             console.error(error);
             return new Response(null, {
@@ -140,18 +151,28 @@ export const action = async ({ params, request }) => {
             });
         }
     }else{
-        return await mongoose.models.Messenger.create(
-            {
-                chatId: params.id,
-                participants: [user, params.id],
-                messages: [
-                    {
-                        sender: user,
-                        receiver: params.id,
-                        message: message,
-                    }
-                ]
-            }
-        );
+        try{
+            await mongoose.models.Messenger.create(
+                {
+                    chatId: params.id,
+                    participants: [user, params.id],
+                    messages: [
+                        {
+                            sender: user,
+                            receiver: params.id,
+                            message: message,
+                        }
+                    ]
+                }
+            );
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+            return new Response(null, {
+                status: 500,
+                text: "Internal Server Error",
+            });
+        }
     }
 }

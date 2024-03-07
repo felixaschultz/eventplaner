@@ -17,6 +17,7 @@ import { authenticator } from "./services/auth.server";
 import mongoose from "mongoose";
 import { Form } from "react-router-dom";
 import { useState } from "react";
+import { destroySession } from "./services/session.server";
 
 export const links = () => [
   {
@@ -174,9 +175,5 @@ function Header({ user }) {
 }
 
 function handleSubmit(event){
-  /* event.preventDefault(); */
-
-  if(){
-    event
-  }
+  event.preventDefault();
 }
