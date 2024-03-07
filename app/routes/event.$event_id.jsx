@@ -68,7 +68,7 @@ export default function Event(){
             <section>
                 {
                     event?.image && (
-                        <img className="w-full h-72 mb-3 object-cover" src={event?.image} alt={event?.title} />
+                        <img loading="lazy" className="w-full h-72 mb-3 object-cover" src={event?.image} alt={event?.title} />
                     )
                 }
                 <div className="flex justify-between items-center mb-3">

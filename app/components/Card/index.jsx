@@ -14,7 +14,7 @@ export default function Card({entry, user, children}) {
             <section>
                 {user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? <p className="badge">Public</p> : <p className="badge">Private</p>)}
                 {entry.image && (
-                    <img src={entry.image} alt={entry.title} className="w-full h-72 object-cover mb-2" />
+                    <img src={entry.image} loading="lazy" alt={entry.title} className="w-full h-72 object-cover mb-2" />
                 )}
                 <h1 className="text-1xl font-bold">{entry.title}</h1>
                 <p>{entry.description}</p>
