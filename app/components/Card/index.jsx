@@ -12,7 +12,7 @@ export default function Card({entry, user, children}) {
     return (
         <section className="card p-8 rounded-md text-slate-50 bg-slate-900">
             <section>
-                <p>{user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? "Public" : "Private")}</p>
+                {user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? <p className="badge">Public</p> : <p className="badge">Private</p>)}
                 {entry.image && (
                     <img src={entry.image} alt={entry.title} className="w-full h-72 object-cover mb-2" />
                 )}
