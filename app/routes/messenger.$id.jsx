@@ -91,6 +91,9 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+            <header className="p-3">
+                <h1 className="text-3xl font-bold text-slate-50">Chat</h1>
+            </header>
             <MessageContainer messages={chat} user={user} ref={chatRef} />
             <footer>
                 <fetcher.Form method="post">
