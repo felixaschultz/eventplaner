@@ -104,8 +104,13 @@ body{
     word-wrap: break-word;
 }
 
+.bubble p{
+    margin: 0;
+}
+
 .bubble.right{
-    background-color: #dcf8c6;
+    background-color: rgb(62, 114, 196);
+    color: #fff;
     margin-left: auto;
 }
 

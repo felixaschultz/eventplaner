@@ -16,13 +16,15 @@ export default function MessageContainer({ messages, user }){
                 
                 return (
                     <div key={i} style={(message.message.indexOf("iframe") > -1) ? {padding: 0, overflow:"hidden", aspectRatio: "16/9"} : {}} className={"bubble" + you} >
-                        {
-                            (message.message.indexOf("iframe") > -1 || message.message.indexOf("<a href=") > -1) ? (
-                                <div dangerouslySetInnerHTML={{ __html: message.message }} />
-                            ) : (
-                                message.message
-                            )
-                        }
+                        <p>
+                            {
+                                (message.message.indexOf("iframe") > -1 || message.message.indexOf("<a href=") > -1) ? (
+                                    <div dangerouslySetInnerHTML={{ __html: message.message }} />
+                                ) : (
+                                    message.message
+                                )
+                            }
+                        </p>
                     </div>
                 );
             })}
