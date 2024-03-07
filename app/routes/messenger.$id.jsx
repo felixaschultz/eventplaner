@@ -183,3 +183,12 @@ export const action = async ({ params, request }) => {
         }
     }
 }
+
+export function shouldRevalidate({
+    currentUrl,
+    actionData,
+  }) {
+    if(actionData && currentUrl.pathname.indexOf('/messenger') > -1){
+        return true;
+    }
+  }
