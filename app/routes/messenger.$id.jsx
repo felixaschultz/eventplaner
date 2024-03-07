@@ -2,11 +2,11 @@ import { useLoaderData, useFetcher, Form, redirect, useNavigate } from "@remix-r
 import { useEffect, useRef } from "react";
 import { useRevalidator } from "@remix-run/react";
 import MessageContainer from "~/components/MessengerContainer";
+import { authenticator } from "~/services/auth.server";
 
 import moment from "moment";
 import mongoose from "mongoose";
 import "../Styles/chat.css";
-import { authenticator } from "~/services/auth.server";
 
 export const meta = () => {
     return [
@@ -18,19 +18,20 @@ export const meta = () => {
 export const loader = async ({ params, request }) => {
     const user = await authenticator.isAuthenticated(request)
 
-    if(!user === false){
+    if(!user){
         return redirect("/login");
     }
 
-    if (!params?.id) {
-        return redirect("/");
-    }
     const id = params.id;
 
     let [chat] = await mongoose.models.Messenger.find({ chat_id: id }).sort({ date: 1 });
 
-    if(!chat){
-        return new Response("Chat not found", {status: 404});
+    if(chat === undefined){
+        console.log("Chat not found");
+        return new Response(null, {
+            status: 404,
+            text: "Chat not found",
+        });
     }
 
     chat = chat.map((message) => {
@@ -51,10 +52,10 @@ export const loader = async ({ params, request }) => {
             message.message = message.message.replace(match, `<iframe width="720" height="auto" style="aspect-ratio: 16/9;" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
         });
 
-        message.you = message.user === signedInUser;
+        message.you = message.user === user;
     });
 
-    const chatUser = chat.find(element => element.user !== signedInUser).user;
+    const chatUser = chat.find(element => element.user !== user).user;
 
     return { chat,  chatUser };
 }

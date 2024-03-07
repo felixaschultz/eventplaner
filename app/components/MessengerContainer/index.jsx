@@ -9,7 +9,7 @@ export default function MessageContainer({ messages }){
 
     return (
         <div ref={chatRef} className="messages-container">
-            {messages.map((message, i) => {
+            {messages?.map((message, i) => {
                 // Calculate the difference in seconds between the current message's date and the previous message's date
                 const secondsDiff = i > 0 ? moment(message.date).diff(moment(messages[i - 1].date), 'seconds') : 0;
                 const you = (message.you) ? " right" : "";
