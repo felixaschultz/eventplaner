@@ -13,6 +13,14 @@ export async function loader({request, params}){
     const eventId = new mongoose.Types.ObjectId(params.event_id);
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
+
+    if(!event){
+        throw new Response(null, {
+            status: 404,
+            text: "Not Found",
+        });
+    }
+
     return {event: event};
 }
 
@@ -134,6 +142,7 @@ export const action = async ({request, params}) => {
     }else if(_action === "delete"){
 
         await mongoose.models.Entry.findByIdAndDelete(params.event_id);
+
         return new Response(null, {
             status: 302,
             headers: {

@@ -75,7 +75,7 @@ export default function Event(){
                     <h1 className="text-2xl font-bold">{event?.title}</h1>
                     {
                         event?.useriD === user?._id && (
-                            <Link className="w-max bg-slate-500 block rounded-md text-slate-200 px-6 py-1" to={"/edit/" + event._id}>Edit</Link>
+                            <Link className="w-max bg-slate-500 block rounded-md text-slate-200 px-6 py-1" to={"/event/" + event._id + "/update"}>Edit</Link>
                         )
                     }
                 </div>
