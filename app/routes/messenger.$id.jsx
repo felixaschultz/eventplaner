@@ -25,9 +25,9 @@ export const loader = async ({ params, request }) => {
     const id = params.id;
 
     let [chat] = await mongoose.models.Messenger.find({
-        $or: [
+        $and: [
             { participants: user },
-            { participants: user }
+            { participants: id }
       ]}).sort({ date: 1 });
 
     if(chat === undefined){
