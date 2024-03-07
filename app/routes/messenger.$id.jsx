@@ -82,8 +82,8 @@ export default function Chat() {
         if (location.pathname.indexOf('/messenger') > -1) {
           const intervalId = setInterval(async () => {
             revalidate.revalidate();
-          }, 1000);
-    
+          }, 3000);
+
           // Clear the interval when the component is unmounted or the path changes
           return () => clearInterval(intervalId);
         }
