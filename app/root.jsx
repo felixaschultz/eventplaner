@@ -142,6 +142,7 @@ function Header({ user }) {
             {
                 user?.user ? <>
                     <Link className="flex items-center justify-center bg-slate-400 rounded-full w-10 h-10 text-4xl p-3 mr-4" to="/create">+</Link>
+                    <Link className="flex items-center justify-center bg-slate-400 rounded-full w-10 h-10 text-4xl p-3 mr-4" to="/messenger">M</Link>
                     <section className="relative">
                       <button className="flex items-center text-right p-3" onClick={() => {
                         setOpenMenu(!openMenu)
