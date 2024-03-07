@@ -44,7 +44,11 @@ export default function Event(){
                     <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
                 </Form>
                 <fetcher.Form method="post" encType="multipart/form-data">
-                    {(event?.image) ? <img onClick={openImageDialog} className="w-full h-72 mb-3 object-cover" src={image} alt="event" /> : null}
+                    {(event?.image || image) ? <img onClick={openImageDialog} className="w-full h-72 mb-3 object-cover" src={image} alt="event" /> : 
+                        <div onClick={openImageDialog} className="w-full border-dotted border-red-50 border-2 h-48">
+                            <p className="flex justify-center items-center h-full cursor-pointer">Upload Image</p>
+                        </div>
+                    }
                     <fieldset className="grid grid-cols-2 gap-4" disabled={fetcher.state === "submitting" ? true : false}>
                         <section>
                             <label htmlFor="title">Title</label>

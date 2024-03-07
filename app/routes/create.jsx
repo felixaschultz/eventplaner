@@ -23,7 +23,7 @@ export default function Create(){
 
     return (
         <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
-            <fetcher.Form className="w-1/2 m-auto" method="post">
+            <fetcher.Form className="w-1/2 m-auto" method="post" encType="multipart/form-data">
                 <h1 className="text-3xl font-bold">Create Event</h1>
                 <fieldset disabled={(fetcher.state === "submitting") ? true : false}>
                     {
