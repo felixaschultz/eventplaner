@@ -112,6 +112,7 @@ export default function Event(){
             <section>
                 <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
                 <h3 className="text-xl mb-2">Place: {event?.place}</h3>
+                <Link className="block w-max py-3 px-4 mt-2 bg-slate-200 text-slate-600 rounded-md" to={"/messenger/" + event?.useriD}>Message Orginazer</Link>
                 <Map place={event?.place} />
                 <section className="mt-5">
                     <h3 className="text-xl font-bold">Attendancies</h3>
