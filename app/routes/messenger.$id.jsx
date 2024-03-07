@@ -82,7 +82,7 @@ export default function Chat() {
 
     useEffect(() => {
         setInterval(() => {
-            revalidate.revalidate();
+            /* revalidate.revalidate(); */
         }, 1000);
     }, []);
 
