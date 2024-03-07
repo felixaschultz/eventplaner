@@ -6,7 +6,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-<<<<<<< HEAD
   useLoaderData,
   useFetcher,
   useActionData,
@@ -20,10 +19,6 @@ import { Form } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "@remix-run/react";
 import { destroySession } from "./services/session.server";
-=======
-} from "@remix-run/react";
-import styles from "./tailwind.css";
->>>>>>> 2d848f7 (Initial commit)
 
 export const links = () => [
   {
@@ -33,7 +28,6 @@ export const links = () => [
 ];
 
 export function meta() {
-<<<<<<< HEAD
   return [{ title: "Event Planer" }];
 }
 
@@ -45,12 +39,6 @@ export async function loader({ request }) {
 
 export default function App() {
   const user = useLoaderData();
-=======
-  return [{ title: "Work Journal" }];
-}
-
-export default function App() {
->>>>>>> 2d848f7 (Initial commit)
   return (
     <html lang="en">
       <head>
@@ -60,10 +48,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-<<<<<<< HEAD
         <Header user={user} />
-=======
->>>>>>> 2d848f7 (Initial commit)
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -72,7 +57,6 @@ export default function App() {
     </html>
   );
 }
-<<<<<<< HEAD
 
 export async function action({request}){
   const formData = await request.formData();
@@ -195,5 +179,3 @@ function Header({ user }) {
 function handleSubmit(event){
   event.preventDefault();
 }
-=======
->>>>>>> 2d848f7 (Initial commit)
