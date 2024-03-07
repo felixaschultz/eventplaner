@@ -74,3 +74,11 @@ body{
     margin-right: 6px;
     object-fit: cover;
 }
+
+.badge{
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+    width: max-content;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
