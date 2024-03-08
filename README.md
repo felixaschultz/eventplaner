@@ -1,6 +1,4 @@
-=======
 # eventplaner
-=======
 # A Remix stack with Mongoose integration
 
 This is a basic [custom template][custom-template] that integrates [Remix][remix] with [Mongoose][mongoose] (and thereby [MongoDB][mongodb]), and configures [Tailwind CSS][tailwindcss] and [Prettier][prettier].
@@ -28,7 +26,3 @@ This starts your app in development mode, rebuilding assets on file changes.
 [mongoose]: https://mongoosejs.com
 [prettier]: https://prettier.io
 [remix]: https://remix.run
-<<<<<<< HEAD
-=======
->>>>>>> 7565311 (Initial commit)
->>>>>>> 2d848f7 (Initial commit)
