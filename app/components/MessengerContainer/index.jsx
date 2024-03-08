@@ -15,17 +15,22 @@ export default function MessageContainer({ messages, user }){
                 const lessThan60Seconds = (secondsDiff <= 60) ? " mt-small " : "";
                 
                 return (
-                    <div key={i} style={(message.message.indexOf("iframe") > -1) ? {padding: 0, overflow:"hidden", aspectRatio: "16/9"} : {}} className={"bubble" + you} >
-                        <p>
-                            {
-                                (message.message.indexOf("iframe") > -1 || message.message.indexOf("<a href=") > -1) ? (
-                                    <div dangerouslySetInnerHTML={{ __html: message.message }} />
-                                ) : (
-                                    message.message
-                                )
-                            }
-                        </p>
-                    </div>
+                    <>
+                        <div className={"message" + you}>
+                            <div key={i} style={(message.message.indexOf("iframe") > -1) ? {padding: 0, overflow:"hidden", aspectRatio: "16/9"} : {}} className={"bubble" + you} >
+                                <p>
+                                    {
+                                        (message.message.indexOf("iframe") > -1 || message.message.indexOf("<a href=") > -1) ? (
+                                            <div dangerouslySetInnerHTML={{ __html: message.message }} />
+                                        ) : (
+                                            message.message
+                                        )
+                                    }
+                                </p>
+                            </div>
+                            <span className={"time" + lessThan60Seconds}>{moment(message.date).format("HH:mm")}</span>
+                        </div>
+                    </>
                 );
             })}
         </div>

@@ -150,16 +150,27 @@ function Header({ user }) {
                       <button className="flex items-center text-right p-3" onClick={() => {
                         setOpenMenu(!openMenu)
                       }}>
+                        <span className="mr-2">{user?.user?.name}</span>
                         {
                             user?.user?.image ?
                                 <img className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
                                 <img className="profile-picture" src="https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg" alt={user?.user?.name} />
-                        }  
-                        {user?.user?.name}
+                        }
                       </button>
                       {
                           openMenu && 
                           <section className="w-max z-10 flex flex-col absolute top-20 right-0 bg-slate-800 text-slate-50 rounded-md overflow-hidden">
+                              <div className="flex">
+                                <p className="flex flex-col mx-2">
+                                  <span>{user?.user?.name}</span>
+                                  <span>{user?.user?.mail}</span>
+                                </p>
+                                {
+                                    user?.user?.image ?
+                                        <img className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
+                                        <img className="profile-picture" src="https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg" alt={user?.user?.name} />
+                                }
+                              </div>
                               <Link onClick={() => setOpenMenu(!openMenu) } className="w-full text-right p-3 hover:bg-slate-400" to="/my-events">My Events</Link>
                               <Link className="w-full p-3 hover:bg-slate-400" onClick={() => setOpenMenu(!openMenu) } to={"/profile/" + user?.user?._id}>Profile</Link>
                               <Form className="inline" method="post">

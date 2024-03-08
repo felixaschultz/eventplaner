@@ -102,6 +102,7 @@ body{
     width: max-content;
     max-width: calc(100% - 588px - 5px);
     word-wrap: break-word;
+    color: #3c3c3c;
 }
 
 .bubble p{
@@ -112,6 +113,14 @@ body{
     background-color: rgb(62, 114, 196);
     color: #fff;
     margin-left: auto;
+}
+
+.message{
+    color: #fff;
+}
+
+.message.right{
+    text-align: right;
 }
 
 .chatContainer{

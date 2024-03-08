@@ -63,7 +63,15 @@ export const loader = async ({ params, request }) => {
         message.you = message.user === user;
     });
 
-    return { chat,  user };
+    const buddy = chat.map(message => {
+        if(message.sender != user){
+            return message.sender
+        }else{
+            return message.receiver
+        }
+    });
+
+    return { chat,  user, buddy };
 }
 
 export default function Chat() {

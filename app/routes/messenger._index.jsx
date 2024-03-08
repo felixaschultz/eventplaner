@@ -43,7 +43,7 @@ export default function Messenger() {
                         ))
                     ) : (currentChat) ? (
                         <Link className="block p-2" to={`/messenger/${currentChat._id}`} key={currentChat._id}>
-                            <h2>
+                            <h2 className="flex w-max transition-all items-center hover:bg-slate-200 hover:text-slate-600 p-2 rounded-md">
                                 {(currentChat?.messages[0].sender.name !== user.name) ? 
                                     <>
                                         <img className="profile-picture" src={(currentChat?.messages[0].sender.image) ? currentChat?.messages[0].sender.image : "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg"} alt={
