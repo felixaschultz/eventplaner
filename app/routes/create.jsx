@@ -52,7 +52,7 @@ export default function Create(){
                         </section>
                         <section>
                             <label htmlFor="description">Description</label>
-                            <textarea required className="block w-full p-2 text-slate-500" id="description" name="description" />
+                            <textarea placeholder="Write your awesome Invitation" required className="block w-full p-2 text-slate-500" id="description" name="description" />
                         </section>
                         <section>
                             <label htmlFor="place">Place</label>

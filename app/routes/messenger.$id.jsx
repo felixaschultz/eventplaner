@@ -7,6 +7,7 @@ import { authenticator } from "~/services/auth.server";
 import moment from "moment";
 import mongoose from "mongoose";
 import "../Styles/chat.css";
+import messengerIcon from "../assets/Asset 13.svg";
 
 export const meta = () => {
     return [
@@ -99,8 +100,11 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <header className="p-3">
-                <h1 className="text-3xl font-bold text-slate-50">Chat</h1>
+            <header className="p-3 border">
+                <h1 className="flex items-center text-3xl font-bold text-slate-50">
+                    <img src={messengerIcon} alt="" className="w-7 h-7 mr-3 inline-block" />
+                    Chat
+                </h1>
             </header>
             <MessageContainer messages={chat} user={user} ref={chatRef} />
             <footer>

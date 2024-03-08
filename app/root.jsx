@@ -19,6 +19,7 @@ import { Form } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "@remix-run/react";
 import { destroySession } from "./services/session.server";
+import messengerIcon from "./assets/Asset 13.svg";
 
 export const links = () => [
   {
@@ -143,7 +144,7 @@ function Header({ user }) {
                 user?.user ? <>
                     <Link className="flex items-center justify-center bg-slate-400 rounded-full w-10 h-10 text-4xl p-3 mr-4" to="/create">+</Link>
                     <Link className="flex items-center justify-center bg-slate-400 rounded-full w-10 h-10 text-4xl p-3 mr-4" to="/messenger">
-                      <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.11 20.02"><g id="Layer_1-2"><path d="m19.91,14.65c.77-1.39,1.2-2.96,1.2-4.64C21.11,4.48,16.39,0,10.56,0S0,4.48,0,10.01s4.73,10.01,10.56,10.01c1.43,0,2.78-.27,4.02-.75l6.19.62-.86-5.24Z" style={{fill:"#f1f2f2", strokeWidth:"0px"}}/></g></svg>
+                      <img src={messengerIcon} alt="" />
                     </Link>
                     <section className="relative">
                       <button className="flex items-center text-right p-3" onClick={() => {
