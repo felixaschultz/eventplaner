@@ -105,7 +105,10 @@ const messengerSchema = new Schema({
 
 const accountSchema = new Schema(
   {
-    image: String,
+    image: {
+      type: String,
+      default: "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg",
+    },
     mail: {
       type: String,
       required: true, // Ensure user emails are required
