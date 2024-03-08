@@ -25,7 +25,7 @@ export default function Signup() {
                     <input className="block p-2 text-slate-500" type="password" id="password" name="password" />
                 </div>
                 <div>
-                <button className="bg-slate-200 text-slate-600 w-full p-3 px-11 mt-3" type="submit">Signup</button>
+                    <button className="bg-slate-200 text-slate-600 w-full p-3 px-11 mt-3" type="submit">Signup</button>
                 </div>
             </Form>
         </div>
