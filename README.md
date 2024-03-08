@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 =======
-<<<<<<< HEAD
 # eventplaner
 =======
->>>>>>> 2d848f7 (Initial commit)
 # A Remix stack with Mongoose integration
 
 This is a basic [custom template][custom-template] that integrates [Remix][remix] with [Mongoose][mongoose] (and thereby [MongoDB][mongodb]), and configures [Tailwind CSS][tailwindcss] and [Prettier][prettier].
