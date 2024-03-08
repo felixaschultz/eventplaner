@@ -14,8 +14,6 @@ export const loader = async ({ params, request }) => {
         ]
     }).populate('messages.sender').populate('messages.receiver').exec();
 
-    console.log(currentChat.messages[0].sender, currentChat.messages[0].receiver);
-
     if(currentChat){
         currentChat?.messages
     }
@@ -27,15 +25,15 @@ export const loader = async ({ params, request }) => {
 export default function Messenger() {
     const {currentChat, user} = useLoaderData();
     return (
-        <div>
-            <h1>Messenger</h1>
+        <div className="p-3">
+            <h1 className="text-2xl text-bold">Messenger</h1>
             <div>
                 {
                     (currentChat?.length > 0) ? (
                         currentChat?.map((chat) => (
                             <div key={chat._id}>
-                                <Link to={`/messenger/${chat._id}`}>
-                                    <h2>
+                                <Link className="block" to={`/messenger/${chat._id}`}>
+                                    <h2 className="text-xl">
                                         {
                                             chat?.participants?.map((participant) => (
                                                 participant
