@@ -1,7 +1,6 @@
 import { authenticator } from "~/services/auth.server";
 import mongoose from "mongoose";
 import { redirect } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ params, request }) => {
@@ -13,26 +12,32 @@ export const loader = async ({ params, request }) => {
         $or: [
             { participants: user }
         ]
-    });
+    }).populate('messages.sender').populate('messages.receiver').exec();
 
-    return currentChat;
+    console.log(currentChat.messages[0].sender, currentChat.messages[0].receiver);
+
+    if(currentChat){
+        currentChat?.messages
+    }
+
+
+    return {currentChat, user};
 };
 
 export default function Messenger() {
-    const currentChat = useLoaderData();
+    const {currentChat, user} = useLoaderData();
     return (
         <div>
             <h1>Messenger</h1>
             <div>
                 {
-                    /* console.log(currentChat, currentChat.length), */
-                    (currentChat.length > 0) ? (
-                        currentChat.map((chat) => (
+                    (currentChat?.length > 0) ? (
+                        currentChat?.map((chat) => (
                             <div key={chat._id}>
                                 <Link to={`/messenger/${chat._id}`}>
                                     <h2>
                                         {
-                                            chat.participants.map((participant) => (
+                                            chat?.participants?.map((participant) => (
                                                 participant
                                             ))
                                         }
@@ -40,12 +45,14 @@ export default function Messenger() {
                                 </Link>
                             </div>
                         ))
-                    ) : (
+                    ) : (currentChat) ? (
                         <Link to={`/messenger/${currentChat._id}`} key={currentChat._id}>
                             <h2>
-                                {currentChat.participants[0]}
+                                {(currentChat?.messages[0].sender.name !== user.name) ? currentChat?.messages[0].sender.name : currentChat?.messages[0].receiver.name}
                             </h2>
                         </Link>
+                    ) : (
+                        <h2>No messages</h2>
                     )
                 }
             </div>

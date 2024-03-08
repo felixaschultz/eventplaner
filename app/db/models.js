@@ -76,17 +76,34 @@ const entrySchema = new Schema(
 );
 
 const messengerSchema = new Schema({
-  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  participants: [
+    { 
+      type: Schema.Types.ObjectId,
+      ref: 'Account',
+      user: {
+        name: String,
+        mail: String,
+        _id: {
+          type: Schema.Types.ObjectId,
+          ref: 'Account'
+        }
+      }
+    }
+  ],
   messages: [{
-    sender: { type: Schema.Types.ObjectId, ref: 'User' },
-    receiver: { type: Schema.Types.ObjectId, ref: 'User' },
+    sender: { 
+      type: Schema.Types.ObjectId, ref: 'Account',
+    },
+    receiver: { 
+      type: Schema.Types.ObjectId, ref: 'Account',
+    },
     message: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
   }],
   unread: { type: Boolean, default: true }
 });
 
-const userSchema = new Schema(
+const accountSchema = new Schema(
   {
     image: String,
     mail: {
@@ -105,7 +122,7 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
+accountSchema.pre("save", async function (next) {
   const user = this; // this refers to the user document
 
   // only hash the password if it has been modified (or is new)
@@ -129,7 +146,7 @@ export const models = [
   },
   {
     name: "Account",
-    schema: userSchema,
+    schema: accountSchema,
     collection: "accounts",
   },
   {
