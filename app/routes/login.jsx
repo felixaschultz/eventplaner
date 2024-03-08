@@ -5,20 +5,25 @@ import Input from "~/components/InputFields";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { authenticator } from "../services/auth.server";
-import { sessionStorage } from "../services/session.server";
+import { getSession, commitSession } from "../services/session.server";
 
 import { json } from "@remix-run/node";
 
-export async function loader({request}) {
-  // If the user is already authenticated redirect to /posts directly
+export async function loader({ request }) {
   await authenticator.isAuthenticated(request, {
     successRedirect: "/",
   });
-  // Retrieve error message from session if present
-  const session = await sessionStorage.getSession(request.headers.get("Cookie"));
-  // Get the error message from the session
+
+  const session = await getSession(request.headers.get("Cookie"));
+
   const error = session.get("sessionErrorKey");
-  return json({ error }); // return the error message
+  session.unset("sessionErrorKey");
+
+  const headers = new Headers({
+    "Set-Cookie": await commitSession(session),
+  });
+
+  return json({ error }, { headers });
 }
 
 export default function Login() {
