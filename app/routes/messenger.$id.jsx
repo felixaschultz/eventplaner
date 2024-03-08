@@ -100,7 +100,7 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <header className="p-3 border">
+            <header className="p-3 border-b-2 h-auto">
                 <h1 className="flex items-center text-3xl font-bold text-slate-50">
                     <img src={messengerIcon} alt="" className="w-7 h-7 mr-3 inline-block" />
                     Chat
