@@ -73,6 +73,9 @@ export async function action({request}){
       ],
       public: true
     });
+
+    console.log(events)
+
     return json(events);
   }else{
     await authenticator.logout(request, {
@@ -83,7 +86,6 @@ export async function action({request}){
 
 export function ErrorBoundary() {
   let error = useRouteError();
-  const user = useLoaderData();
   return (
     <html lang="en" className="h-full">
       <head>
@@ -92,7 +94,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <Header user={user} />
+        <Header />
         <section className="flex h-full flex-col items-center justify-center">
           <p className="text-3xl">Whoops!</p>
           {isRouteErrorResponse(error) ? (
