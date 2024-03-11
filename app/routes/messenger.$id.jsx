@@ -118,7 +118,7 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <div className="allChats">
+            <div className="allChats border-r-2">
                 <h1 className="text-2xl text-bold">Chats</h1>
                 {
                     (currentChat?.length > 0) ? (
