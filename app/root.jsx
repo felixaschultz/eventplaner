@@ -118,9 +118,9 @@ function Header({ user }) {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="grid grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
+    <header className="grid lg:grid-cols-3 p-8 place-items-left text-slate-50 bg-slate-800">
         <Link onClick={() => navigate("/")} className="flex place-items-center decoration-transparent"><h1 className="text-3xl font-thin uppercase italic font-serif">EventPlanner</h1></Link>
-        <Form className="flex" method="post" onSubmit={handleSubmit}>
+        <Form className="lg:flex" method="post" onSubmit={handleSubmit}>
             <input className="px-3 text-slate-700 rounded-md" type="search" name="search" placeholder="Search" />
             <input className="px-3 text-slate-700 mx-2 rounded-md" type="datetime-local" name="date" />
             <button className="px-3 bg-slate-300 text-slate-600 rounded-md" name="_action" value="search" type="submit">Search</button>
