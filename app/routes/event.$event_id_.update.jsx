@@ -6,13 +6,21 @@ import { uploadImage } from "~/services/uploadImage.server";
 import { useState } from "react";
 
 export async function loader({request, params}){
-    await authenticator.isAuthenticated(request, {
+    const user = await authenticator.isAuthenticated(request, {
         failureRedirect: "/login"
     });
 
     const eventId = new mongoose.Types.ObjectId(params.event_id);
 
     const event = await mongoose.models.Entry.findOne({_id: eventId});
+
+    if(event.useriD != user?._id){
+        throw new Response(null, {
+            status: 401,
+            message: "Unauthorized",
+        });
+
+    }
 
     if(!event){
         throw new Response(null, {
@@ -152,6 +160,15 @@ export const action = async ({request, params}) => {
     }else{
 
         const { image, oldImage } = Object.fromEntries(formData);
+
+        if(user._id !== data.useriD){
+            return new Response(null, {
+                status: 401,
+                headers: {
+                    location: "/login",
+                },
+            });
+        }
 
         if(oldImage){
             data.image = oldImage;
