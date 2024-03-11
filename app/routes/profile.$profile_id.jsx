@@ -51,17 +51,17 @@ export default function Profile(){
                 </section>
                 <section>
                     {
-                        (user?._id === profile._id) ? (
+                        (user?._id === profile._id) ?? (
                             <>
                                 <button className="bg-slate-300 rounded-md text-slate-600 px-7 py-3" onClick={() => {
                                     setShowEdit(!showEdit);
                                 }}>Edit image</button>
                                 <Link to={"/my-events"} className="bg-slate-300 rounded-md text-slate-600 px-7 py-3 ml-3">View events</Link>
                             </>
-                        ) : null
+                        )
                     }
                     {
-                        (showEdit && user?._id === profile._id) ? (
+                        (showEdit && user?._id === profile._id) ?? (
                             <fetcher.Form className="mt-7" method="post" encType="multipart/form-data">
                                 <fieldset disabled={fetcher.submitting} className="disabled:opacity-20">
                                     <input
@@ -73,7 +73,7 @@ export default function Profile(){
                                     <button className="bg-slate-600 p-3 px-11 mt-3 rounded-md" type="submit">Update Image</button>
                                 </fieldset>
                             </fetcher.Form>
-                        ) : null
+                        )
                     }
                 </section>
             </div>
