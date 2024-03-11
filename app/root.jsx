@@ -153,7 +153,9 @@ function Header({ user }) {
                         <span className="mr-2">{user?.user?.name}</span>
                         {
                             user?.user?.image ?
-                                <img className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
+                                <img onError={(e) => {
+                                  e.target.src = "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg";
+                                }} className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
                                 <img className="profile-picture" src="https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg" alt={user?.user?.name} />
                         }
                       </button>
@@ -167,7 +169,9 @@ function Header({ user }) {
                                 </p>
                                 {
                                     user?.user?.image ?
-                                        <img className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
+                                        <img onError={(e) => {
+                                          e.target.src = "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg";
+                                        }} className="profile-picture" src={user?.user?.image} alt={user?.user?.name} /> :
                                         <img className="profile-picture" src="https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg" alt={user?.user?.name} />
                                 }
                               </div>
