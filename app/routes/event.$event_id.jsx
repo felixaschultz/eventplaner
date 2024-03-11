@@ -64,7 +64,7 @@ export default function Event(){
     }, [fetcher.state, comment]);
 
     return (
-        <div className="grid grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
+        <div className="grid lg:grid-cols-2 gap-9 p-8 text-slate-50 bg-slate-900 min-h-full">
             <section>
                 {
                     event?.image && (
