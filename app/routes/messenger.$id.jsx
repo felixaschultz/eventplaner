@@ -118,7 +118,7 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <div className="allChats border-r-2">
+            <div className="allChats border-r border-gray-400">
                 <h1 className="text-2xl text-bold">Chats</h1>
                 {
                     (currentChat?.length > 0) ? (
@@ -157,14 +157,14 @@ export default function Chat() {
                 }
             </div>
             <section style={{height: "calc(100vh - 123px)", display: "grid", gridTemplateRows: "auto 1fr auto"}}>
-                <header className="p-3 border-b-2 h-auto">
+                <header className="p-3 border-b border-gray-400 h-auto">
                     <h1 className="flex items-center text-3xl font-bold text-slate-50">
                         <img src={messengerIcon} alt="" className="w-7 h-7 mr-3 inline-block" />
                         Chat
                     </h1>
                 </header>
                 <MessageContainer messages={chat} user={user} ref={chatRef} />
-                <footer>
+                <footer className="border-t border-gray-400">
                     <fetcher.Form method="post">
                         <fieldset disabled={fetcher.state === "submitting" ? true : false}>
                             <section className="chatContainer">

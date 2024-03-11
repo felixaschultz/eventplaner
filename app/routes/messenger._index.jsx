@@ -26,7 +26,7 @@ export default function Messenger() {
     const {currentChat, user} = useLoaderData();
     return (
         <div className="grid grid-cols-2 p-3 bg-slate-900 text-slate-200">
-            <div>
+            <div className="allChats border-r border-gray-400">
                 <h1 className="text-2xl text-bold">Chats</h1>
                 {
                     (currentChat?.length > 0) ? (
