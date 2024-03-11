@@ -18,7 +18,7 @@ export default function Index() {
   return (
     <div className="p-8 text-slate-50 bg-slate-900 min-h-full">
       <h1 className="text-3xl font-bold">Events</h1>
-      <section className="grid grid-cols-2 gap-4">
+      <section className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-4">
         {entries.sort((a, b) => {
           return new Date(b.date) - new Date(a.date);
         }).map((entry) => (
