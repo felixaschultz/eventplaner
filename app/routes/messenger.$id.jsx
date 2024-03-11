@@ -1,4 +1,4 @@
-import { useLoaderData, useFetcher, redirect, useLocation } from "@remix-run/react";
+import { useLoaderData, useFetcher, redirect, useLocation,Link } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 import { useRevalidator } from "@remix-run/react";
 import MessageContainer from "~/components/MessengerContainer";
@@ -71,11 +71,21 @@ export const loader = async ({ params, request }) => {
         }
     });
 
-    return { chat,  user, buddy };
+    const currentChat = await mongoose.models.Messenger.findOne({
+        $or: [
+            { participants: user }
+        ]
+    }).populate('messages.sender').populate('messages.receiver').exec();
+
+    if(currentChat){
+        currentChat?.messages
+    }
+
+    return { chat,  user, buddy, currentChat };
 }
 
 export default function Chat() {
-    const {chat, user} = useLoaderData();
+    const {chat, user, currentChat} = useLoaderData();
     const location = useLocation();
 
     const fetcher = useFetcher();
@@ -108,23 +118,63 @@ export default function Chat() {
 
     return (
         <div className="chatContainer-grid bg-slate-900" style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-            <header className="p-3 border-b-2 h-auto">
-                <h1 className="flex items-center text-3xl font-bold text-slate-50">
-                    <img src={messengerIcon} alt="" className="w-7 h-7 mr-3 inline-block" />
-                    Chat
-                </h1>
-            </header>
-            <MessageContainer messages={chat} user={user} ref={chatRef} />
-            <footer>
-                <fetcher.Form method="post">
-                    <fieldset disabled={fetcher.state === "submitting" ? true : false}>
-                        <section className="chatContainer">
-                            <input className="chat-input bg-slate-900 outline-none text-slate-300" ref={textRef} type="text" name="message" placeholder="Type a message" />
-                            <button className="chat-button bg-slate-600 p-2 px-3 rounded-lg text-right text-slate-200" type="submit">Send</button>
-                        </section>
-                    </fieldset>
-                </fetcher.Form>
-            </footer>
+            <div className="allChats">
+                <h1 className="text-2xl text-bold">Chats</h1>
+                {
+                    (currentChat?.length > 0) ? (
+                        currentChat?.map((chat) => (
+                            <Link key={chat._id} className="block p-2" to={`/messenger/${chat._id}`}>
+                                <h2 className="text-xl">
+                                    {
+                                        chat?.participants?.map((participant) => (
+                                            participant
+                                        ))
+                                    }
+                                </h2>
+                            </Link>
+                        ))
+                    ) : (currentChat) ? (
+                        <Link className="block p-2" to={`/messenger/${currentChat._id}`} key={currentChat._id}>
+                            <h2 className="flex w-max transition-all items-center hover:bg-slate-200 hover:text-slate-600 p-2 rounded-md">
+                                {(currentChat?.messages[0].sender.name !== user.name) ? 
+                                    <>
+                                        <img className="profile-picture" src={(currentChat?.messages[0].sender.image) ? currentChat?.messages[0].sender.image : "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg"} alt={
+                                            currentChat?.messages[0].sender.name
+                                        } />
+                                        {currentChat?.messages[0].sender.name}
+                                    </> :
+                                     <>
+                                        <img className="profile-picture" src={(currentChat?.messages[0].receiver.image) ? currentChat?.messages[0].receiver.image : "https://scontent-uc-d2c-7.intastellar.com/a/s/ul/p/avtr46-img/profile_standard.jpg"} alt={
+                                            currentChat?.messages[0].receiver.name
+                                        } />
+                                        {currentChat?.messages[0].receiver.name}
+                                    </>}
+                            </h2>
+                        </Link>
+                    ) : (
+                        <h2>No messages</h2>
+                    )
+                }
+            </div>
+            <section style={{height: "calc(100vh - 123px)", display: "grid", gridTemplateRows: "auto 1fr auto"}}>
+                <header className="p-3 border-b-2 h-auto">
+                    <h1 className="flex items-center text-3xl font-bold text-slate-50">
+                        <img src={messengerIcon} alt="" className="w-7 h-7 mr-3 inline-block" />
+                        Chat
+                    </h1>
+                </header>
+                <MessageContainer messages={chat} user={user} ref={chatRef} />
+                <footer>
+                    <fetcher.Form method="post">
+                        <fieldset disabled={fetcher.state === "submitting" ? true : false}>
+                            <section className="chatContainer">
+                                <input className="chat-input bg-slate-900 outline-none text-slate-300" ref={textRef} type="text" name="message" placeholder="Type a message" />
+                                <button className="chat-button bg-slate-600 p-2 px-3 rounded-lg text-right text-slate-200" type="submit">Send</button>
+                            </section>
+                        </fieldset>
+                    </fetcher.Form>
+                </footer>
+            </section>
         </div>
     );
 }

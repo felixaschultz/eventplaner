@@ -162,6 +162,7 @@ export const action = async ({request, params}) => {
     const { _action } = Object.fromEntries(formData);
 
     if(_action === "attend"){
+
         return await mongoose.models.Entry.findOneAndUpdate(eventId, {
             $push: {
                 participant: {
