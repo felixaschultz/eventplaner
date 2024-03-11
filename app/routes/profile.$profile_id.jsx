@@ -1,5 +1,5 @@
 import {authenticator} from "../services/auth.server";
-import {Form, useLoaderData, useFetcher} from "@remix-run/react";
+import {Form, useLoaderData, useFetcher, Link} from "@remix-run/react";
 import {json} from "@remix-run/node";
 import mongoose from 'mongoose';
 import {useState} from "react";
@@ -43,19 +43,26 @@ export default function Profile(){
     }
 
     return (
-        <div className="bg-slate-900 text-slate-50">
+        <div className="bg-slate-900 text-slate-50 h-full pt-4">
             <div className="grid grid-cols-2 w-1/2 m-auto p-2">
                 <section>
-                    <img className="w-1/4 h-auto aspect-square object-cover mb-3 rounded-xl" src={image} alt={profile.name} /> 
+                    <img className="w-1/2 h-auto aspect-square object-cover mb-3 rounded-full" src={image} alt={profile.name} /> 
                     <h1 className="text-3xl">{profile.name}</h1>
                 </section>
                 <section>
-                    <button className="bg-slate-300 rounded-md text-slate-600 px-7 py-3 mt-3 mb-6" onClick={() => {
-                        setShowEdit(!showEdit);
-                    }}>Edit profile image</button>
+                    {
+                        (user?._id === profile._id) ? (
+                            <>
+                                <button className="bg-slate-300 rounded-md text-slate-600 px-7 py-3" onClick={() => {
+                                    setShowEdit(!showEdit);
+                                }}>Edit image</button>
+                                <Link to={"/my-events"} className="bg-slate-300 rounded-md text-slate-600 px-7 py-3 ml-3">View events</Link>
+                            </>
+                        ) : null
+                    }
                     {
                         (showEdit && user?._id === profile._id) ? (
-                            <fetcher.Form method="post" encType="multipart/form-data">
+                            <fetcher.Form className="mt-7" method="post" encType="multipart/form-data">
                                 <fieldset disabled={fetcher.submitting} className="disabled:opacity-20">
                                     <input
                                         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -63,7 +70,7 @@ export default function Profile(){
                                         type="file"
                                         onChange={handleImageChange}
                                     />
-                                    <button className="bg-slate-600 p-3 px-11 mt-3" type="submit">Update Image</button>
+                                    <button className="bg-slate-600 p-3 px-11 mt-3 rounded-md" type="submit">Update Image</button>
                                 </fieldset>
                             </fetcher.Form>
                         ) : null
