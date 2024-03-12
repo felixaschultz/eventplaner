@@ -74,8 +74,6 @@ export async function action({request}){
       public: true
     });
 
-    console.log(events)
-
     return json(events);
   }else{
     await authenticator.logout(request, {
