@@ -110,7 +110,7 @@ export const action = async ({ request }) => {
     data.useriD = userId;
     data.image = newImage;
     data.date = new Date(data.date);
-    data.date.setHours(data.date.getHours() + 1);
+    /* data.date.setHours(data.date.getHours() + 1); */
     data.date = data.date.toUTCString();
 
     const NewEvent = await mongoose.models.Entry.create(data);
