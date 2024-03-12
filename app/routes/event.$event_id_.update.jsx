@@ -160,8 +160,7 @@ export const action = async ({request, params}) => {
     }else{
 
         const { image, oldImage } = Object.fromEntries(formData);
-
-        if(user._id !== data.useriD){
+        if(user._id != data.useriD){
             return new Response(null, {
                 status: 401,
                 headers: {
