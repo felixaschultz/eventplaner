@@ -83,7 +83,6 @@ export const action = async ({ request }) => {
     const user = await authenticator.isAuthenticated(request, {
         failureRedirect: "/login",
     });
-
     
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
