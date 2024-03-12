@@ -98,7 +98,7 @@ export default function Event(){
                         (event?.comment && event?.comment.length > 0) ? event?.comment.sort((a,b) => {
                             return new Date(b.date) - new Date(a.date);
                         }).map((comment, key) => {
-                            const date = new Date(comment.date).toLocaleString("de-DE");
+                            const date = new Intl.DateTimeFormat("de-DE").format(new Date(comment.date));
                             return (
                                 <section key={key} className="mt-8">
                                     <p className="block w-full bg-slate-200 text-slate-500 p-3 rounded-md mt-3">{comment.comment}</p>
@@ -110,7 +110,13 @@ export default function Event(){
                 </article>
             </section>
             <section>
-                <h2 className="text-3xl font-bold">{new Date(event?.date).toLocaleString("de-DE")}</h2>
+                <h2 className="text-3xl font-bold">{new Intl.DateTimeFormat("de-DE", {
+                    dateStyle: "short",
+                    timeStyle: "medium",
+                    timeZone: "UTC"
+                }).format(
+                    new Date(event?.date)
+                )}</h2>
                 <h3 className="text-xl mb-2">Place: {event?.place}</h3>
                 <Link className="block w-max py-3 px-4 mt-2 bg-slate-200 text-slate-600 rounded-md" to={"/messenger/" + event?.useriD}>Message Orginazer</Link>
                 <Map place={event?.place} />

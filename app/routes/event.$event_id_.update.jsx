@@ -46,7 +46,7 @@ export default function Event(){
     const fetcher = useFetcher();
 
     
-    const defaultDate = new Date(event.date).toISOString().slice(0, 16);
+    const defaultDate = new Date(event?.date).toISOString().split('.')[0].slice(0, -3);
     /* const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     const imageRegex = new RegExp(`.(${validImageExtensions.join('|')})$`, 'i'); */
 
@@ -180,16 +180,20 @@ export const action = async ({request, params}) => {
             }
         }
 
+        data.date = new Date(data.date);
+        data.date.setHours(data.date.getHours() + 1);
+        data.date = data.date.toUTCString();
+
         const updatedEvent = await mongoose.models.Entry.updateOne(
             {_id: eventId},
             data
         );
-    
+
         if(updatedEvent){
             return new Response(null, {
                 status: 302,
                 headers: {
-                    location: "/event/" + params.event_id,
+                    location: `/event/${params.event_id}`,
                 },
             });
         }

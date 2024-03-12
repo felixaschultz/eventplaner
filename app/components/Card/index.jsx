@@ -7,6 +7,7 @@ export default function Card({entry, user, children}) {
     const time = new Intl.DateTimeFormat("da-DK", {
         hour: "numeric",
         minute: "numeric",
+        timeZone: "UTC"
     }).format(new Date(entry.date));
 
     return (
