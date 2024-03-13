@@ -14,7 +14,7 @@ export default function Card({entry, user, children}) {
         <section className="card p-8 rounded-md text-slate-50 bg-slate-900">
             <section>
                 {user && user._id === entry.useriD && pathname === "/my-events" && (entry.public ? <p className="badge">Public</p> : <p className="badge">Private</p>)}
-                {(entry.cancel ? <p className="badge --canceld">Canceled</p> : null)}
+                {(entry.cancel ? <p className="badge --canceld">Cancelled</p> : null)}
                 {entry.image && (
                     <img onError={(e) => {
                         e.target.src = "https://via.placeholder.com/300";
