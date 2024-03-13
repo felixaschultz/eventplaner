@@ -1,4 +1,6 @@
 # eventplaner
+# CAUTION
+Event tidspunktet er i den Lokale version 1 time foran den på Heroku. Dette skyldes at Heroku kører i UTC tid.
 # A Remix stack with Mongoose integration
 
 This is a basic [custom template][custom-template] that integrates [Remix][remix] with [Mongoose][mongoose] (and thereby [MongoDB][mongodb]), and configures [Tailwind CSS][tailwindcss] and [Prettier][prettier].
