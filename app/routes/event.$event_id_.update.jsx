@@ -217,6 +217,7 @@ function handleSubmit(e){
         e.preventDefault();
     }else if(value === "public" && !confirm(`Are you sure, you want to make this event ${e.nativeEvent.submitter.innerText.indexOf("Public") > -1 ? "public" : "private"}?`)){
         e.preventDefault();
-
+    }else if(value === "cancel" && !confirm(`Are you sure, you want to ${e.nativeEvent.submitter.innerText.indexOf("Cancel") > -1 ? "cancel" : "uncancel"} this event?`)){
+        e.preventDefault();
     }
 }
