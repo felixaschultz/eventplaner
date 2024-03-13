@@ -128,7 +128,7 @@ export default function Event(){
                     {!attending && (
                     <Form className="mt-1" method="post" onSubmit={handleSubmit}>
                         {
-                            user && event?.useriD !== user?._id && (
+                            user && event?.useriD !== user?._id && !event.cancel && (
                                 <button className="bg-slate-100 rounded-md text-slate-600 px-7 py-2" name="_action" value="attend">Attend</button>
                             )
                         }
