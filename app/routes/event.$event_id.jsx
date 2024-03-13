@@ -72,7 +72,7 @@ export default function Event(){
                     )
                 }
                 <div className="flex justify-between items-center mb-3">
-                    <h1 className="text-2xl font-bold">{event?.title}</h1>
+                    <h1 className="text-2xl font-bold">{event?.title} {(event?.cancel ? "Cancelled" : null)}</h1>
                     {
                         event?.useriD === user?._id && (
                             <Link className="w-max bg-slate-500 block rounded-md text-slate-200 px-6 py-1" to={"/event/" + event._id + "/update"}>Edit</Link>

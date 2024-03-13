@@ -58,6 +58,7 @@ export default function Event(){
                 <Form className="my-5" method="post" onSubmit={handleSubmit}>
                     <button className="bg-red-600 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="delete">Delete Event</button>
                     <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="public">Make { event.public ? "Private": "Public" }</button>
+                    <button className="bg-slate-500 mx-2 rounded-md text-slate-200 px-6 py-1" name="_action" value="cancel">{ event.cancel ? "Cancelled": "Cancel" }</button>
                 </Form>
                 <fetcher.Form method="post" encType="multipart/form-data">
                     {(event?.image || image) ? <img onClick={openImageDialog} className="w-full h-72 mb-3 object-cover" src={image} alt="event" /> : 
@@ -151,6 +152,16 @@ export const action = async ({request, params}) => {
 
         await mongoose.models.Entry.findByIdAndDelete(params.event_id);
 
+        return new Response(null, {
+            status: 302,
+            headers: {
+                location: "/my-events",
+            },
+        });
+    } else if(_action === "cancel"){
+        const entry = await mongoose.models.Entry.findById(eventId);
+        entry.cancel = !entry.cancel;
+        await entry.save();
         return new Response(null, {
             status: 302,
             headers: {
