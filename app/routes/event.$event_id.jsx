@@ -53,6 +53,8 @@ export default function Event(){
     const {event, user} = useLoaderData();
     const comment = useRef();
 
+    console.log(event);
+
     const attending = event?.participant?.some((participant) => {
         return participant._id === user?._id;
     })
@@ -72,7 +74,7 @@ export default function Event(){
                     )
                 }
                 <div className="flex justify-between items-center mb-3">
-                    <h1 className="text-2xl font-bold">{event?.title} {(event?.cancel ? "Cancelled" : null)}</h1>
+                    <h1 className="text-2xl font-bold">{event?.title}</h1>
                     {
                         event?.useriD === user?._id && (
                             <Link className="w-max bg-slate-500 block rounded-md text-slate-200 px-6 py-1" to={"/event/" + event._id + "/update"}>Edit</Link>
@@ -110,7 +112,7 @@ export default function Event(){
                 </article>
             </section>
             <section>
-                <h2 className="text-3xl font-bold">{new Intl.DateTimeFormat("de-DE", {
+                <h2 className={`text-3xl font-bold ${event.cancel ? "line-through" : ""}`}>{new Intl.DateTimeFormat("de-DE", {
                     dateStyle: "short",
                     timeStyle: "medium",
                     timeZone: "UTC"
