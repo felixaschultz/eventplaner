@@ -13,7 +13,6 @@ export default function MessageContainer({ messages, user }){
                 const secondsDiff = i > 0 ? moment(message.date).diff(moment(messages[i - 1].date), 'seconds') : 0;
                 const you = (message.sender === user._id) ? " right" : "";
                 const lessThan60Seconds = (secondsDiff <= 60) ? " mt-small " : "";
-                
                 return (
                     <>
                         <div className={"message" + you}>
@@ -28,7 +27,13 @@ export default function MessageContainer({ messages, user }){
                                     }
                                 </p>
                             </div>
-                            <span className={"time" + lessThan60Seconds}>{moment(message.date).format("HH:mm")}</span>
+                            <span className={"time" + lessThan60Seconds}>{new Intl.DateTimeFormat("de-DE", {
+                                dateStyle: "short",
+                                timeStyle: "medium",
+                                timeZone: "UTC"
+                            }).format(
+                                new Date(message?.timestamp)
+                            )}</span>
                         </div>
                     </>
                 );

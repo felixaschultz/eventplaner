@@ -180,9 +180,9 @@ export const action = async ({request, params}) => {
             }
         }
 
-        data.date = new Date(data.date);
+        /* data.date = new Date(data.date); */
         /* data.date.setHours(data.date.getHours() + 1); */
-        data.date = data.date.toUTCString();
+        /* data.date = data.date.toUTCString(); */
 
         const updatedEvent = await mongoose.models.Entry.updateOne(
             {_id: eventId},
